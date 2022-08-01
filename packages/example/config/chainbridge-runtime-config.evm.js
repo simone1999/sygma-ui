@@ -4,44 +4,42 @@ window.__RUNTIME_CONFIG__ = {
   CHAINBRIDGE: {
     chains: [
       {
-        domainId: 0,
-        networkId: 4,
-        name: "Ethereum - Rinkeby",
+        domainId: 1,
+        networkId: 56,
+        name: "BinanceSmartChain",
         decimals: 18,
-        bridgeAddress: "0x691DCf269FDb2B9e4229d27fEd2FA7cEeBF660C8",
-        erc20HandlerAddress: "0x4051C29d0545923554E3aBae5a31b5fb27e5949f",
-        rpcUrl: "http://localhost:4000",
+        bridgeAddress: "0xDC2393dc10734BF153153038943a5deB42b209cd",
+        erc20HandlerAddress: "0xC7E6d7E08A89209F02af47965337714153c529F0",
+        rpcUrl: "https://bsc-dataseed3.binance.org/",
         type: "Ethereum",
-        nativeTokenSymbol: "ETH",
+        nativeTokenSymbol: "BNB",
         tokens: [
           {
-            address: "0x6829D0dA9f03338703E3d9fcAD6DD308202faf46",
-            name: "an ERC20",
-            symbol: "ERC20",
-            imageUri: "WETHIcon",
-            resourceId:
-              "0x000000000000000000000000000000e389d61c11e5fe32ec1735b3cd38c69500",
-          },
-        ],
+            address: "0xce6c9c70f91c6797873EFC80505f972290A88f5D",
+            name: "IceCream",
+            symbol: "ICE",
+            imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D/logo.png",
+            resourceId: "0x0000000000000000000000B999Ea90607a826A3E6E6646B404c3C7d11fa39D02"
+          }
+        ]
       },
       {
-        domainId: 1,
-        networkId: 5,
-        name: "Ethereum - Goerli",
+        domainId: 2,
+        networkId: 32520,
+        name: "Bitgert",
         decimals: 18,
-        bridgeAddress: "0xF014f5c6B88C7D74c846eEEEE29c55d6BB51D9B0",
-        erc20HandlerAddress: "0xa52624ac54165113913D37184AA5957DB99CF2C9",
-        rpcUrl: "http://localhost:4001",
+        bridgeAddress: "0x12AA82525DEfF84777fa78578A68ceB854A85f43",
+        erc20HandlerAddress: "0x8687cD1d02A28098571067ddB18F33fEF667C929",
+        rpcUrl: "https://rpc.icecreamswap.com",
         type: "Ethereum",
-        nativeTokenSymbol: "ETH",
+        nativeTokenSymbol: "Brise",
         tokens: [
           {
-            address: "0x3e9a09aBB17509951Ea6F6E221700660017683cb",
-            name: "an ERC20",
-            symbol: "ERC20",
-            imageUri: "WETHIcon",
-            resourceId:
-              "0x000000000000000000000000000000e389d61c11e5fe32ec1735b3cd38c69500",
+            address: "0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D",
+            name: "IceCream",
+            symbol: "ICE",
+            imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D/logo.png",
+            resourceId: "0x0000000000000000000000B999Ea90607a826A3E6E6646B404c3C7d11fa39D02"
           },
         ],
       },

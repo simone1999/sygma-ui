@@ -268,10 +268,10 @@ const TransferPage = () => {
             fullWidth
             variant="contained"
             sx={{
-              backgroundColor: "#262626",
+              backgroundColor: "#2792d6",
               color: "#ffffff",
               ":hover": {
-                backgroundColor: "#262626",
+                backgroundColor: "#2792d6",
                 opacity: 0.9,
               },
             }}

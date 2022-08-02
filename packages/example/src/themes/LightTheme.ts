@@ -5,6 +5,9 @@ export const lightTheme = createTheme({
     body: {
       backgroundColor: "#F5F5F5",
     },
+    "#root": {
+      backgroundColor: "#000000"
+    }
   },
   themeConfig: {
     constants: {
@@ -19,7 +22,7 @@ export const lightTheme = createTheme({
           1: "#595959", // FAQ button // gray8
         },
         header: {
-          1: "#F5F5F5", // Background
+          1: "rgba(255,0,0,0)", // Background
           2: "#595959", // Text color //gray8
           3: "#BFBFBF", // border // gray6
         },

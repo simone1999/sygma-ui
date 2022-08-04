@@ -62,7 +62,7 @@ const AppWrapper: React.FC<IAppWrapper> = ({
     <>
       {enableNavTabs ? (
         <div>
-          <AppHeader />
+          {/*<AppHeader />*/}
           <Container>
             <Paper
               sx={{
@@ -78,7 +78,8 @@ const AppWrapper: React.FC<IAppWrapper> = ({
               }}
               elevation={3}
             >
-              {enableNavTabs && (
+              {/*
+              {enableNavTabs  && (
                 <Tabs value={currentTab}>
                   <Tab
                     icon={<GlobalSvg />}
@@ -100,6 +101,7 @@ const AppWrapper: React.FC<IAppWrapper> = ({
                   )}
                 </Tabs>
               )}
+              */}
               <div className={classes.pageArea}>{children}</div>
             </Paper>
           </Container>

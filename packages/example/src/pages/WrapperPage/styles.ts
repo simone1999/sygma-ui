@@ -12,6 +12,7 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
       position: "relative",
     },
     walletArea: {
+      
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -22,6 +23,7 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
       color: palette.common.black.main,
     },
     connectButton: {
+      
       margin: `${constants.generalUnit * 3}px 0 ${constants.generalUnit * 6}px`,
     },
     connecting: {

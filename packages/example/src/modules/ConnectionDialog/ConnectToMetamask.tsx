@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { initializeConnector } from "@web3-react/core";
 import { MetaMask } from "@web3-react/metamask";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, ButtonProps } from "@mui/material";
 import { MetamaskIcon } from "@fusion-icons/react/web3";
-
+import styled from "styled-components";
+import logo_metamask from '../../media/Icons/metamask.png';
 export const [metaMask, hooks] = initializeConnector<MetaMask>(
   (actions) => new MetaMask(actions)
 );
@@ -60,22 +61,39 @@ const ConnectToMetamask = ({
     }
   }, [isActive]);
 
+
+  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+    color: '#fff',
+    textTransform : "capitalize" ,
+    fontFamily : "Inter",
+    fontWeight : "500",
+    paddingLeft : "20px",
+    paddingRight : "20px",
+    // backgroundColor: "#3a3c48",
+    borderColor : "#3a3c48",
+    ':hover': {
+      backgroundColor: "#3a3c48",
+    },
+  }));
+
+
   return (
-    <Button
+    <ColorButton
       size="large"
       endIcon={
-        <MetamaskIcon width="32" height="32" strokeWidth="2" stroke="#1976d2" />
+        <img src={logo_metamask} alt="Logo" />
       }
-      fullWidth
       variant="outlined"
-      sx={{ justifyContent: "space-between" }}
+      fullWidth
+
+      sx={{  justifyContent: "space-between"}}
       onClick={() => {
         metaMask.activate();
       }}
     >
       {" "}
       metamask
-    </Button>
+    </ColorButton>
   );
 };
 

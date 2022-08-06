@@ -24,22 +24,36 @@ const FeesFormikWrapped: React.FC<IFeesFormikWrapped> = ({
   // const { values } = useFormikContext();
 
   return (
-    <Box sx={{ my: 2 }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Box sx={{ my: 2,   ".text-p" : {
+      fontFamily : "Fira Code",
+      fontWeight :'400',
+      fontSize : '14px',
+      color : '#babcc0'
+    },
+    ".text-p2" : {
+      fontFamily : "Fira Code",
+      fontWeight :'bold',
+      fontSize : '15px',
+      color : '#fff'
+    } }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", 
+    
+    
+    }}>
         {fee !== undefined && feeSymbol !== undefined && (
           <>
-            <Typography component="p">Bridge Fee</Typography>
-            <Typography component="p">
+            <Typography className="text-p">Bridge Fee :</Typography>
+            <Typography className="text-p2">
               {Number(fee).toFixed(2)} {feeSymbol}
             </Typography>
           </>
         )}
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between"}}>
         {symbol !== undefined && (
           <>
-            <Typography component="p">Transfer Amount:</Typography>
-            <Typography component="p">
+            <Typography className="text-p">Transfer Amount:</Typography>
+            <Typography className="text-p2">
               {(Number(amount) - Number(fee)).toFixed(2)} {symbol}
             </Typography>
           </>

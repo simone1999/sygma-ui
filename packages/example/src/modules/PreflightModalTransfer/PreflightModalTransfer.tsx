@@ -42,7 +42,7 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
         Pre-flight check
       </Typography>
       <Typography className={classes.subtitle} variant="h5" component="p">
-        Please be advised this is an experimental application:
+        Please be advised of the risks of using this Bridge:
       </Typography>
       <ul>
         <li>
@@ -52,17 +52,7 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
         </li>
         <li>
           <Typography variant="h5">
-            Your transaction could get stuck for an indefinite amount of time
-          </Typography>
-        </li>
-        <li>
-          <Typography variant="h5">
             Funds cannot be returned if they are sent to the wrong address.
-          </Typography>
-        </li>
-        <li>
-          <Typography variant="h5">
-            The transaction fee may be higher than expected.
           </Typography>
         </li>
       </ul>

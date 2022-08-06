@@ -31,7 +31,16 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle
+    sx={{ m: 0, p: 2 ,
+      fontFamily : "Inter",
+      backgroundColor : '#1d1f24',
+      color : "#fefefe",
+      fontSize : "15px",
+      fontWeight : '600',
+
+    }}
+     {...other}>
       {children}
       {onClose ? (
         <IconButton
@@ -75,8 +84,8 @@ export default function ConnectionDialog({
         >
           Connect to a wallet
         </BootstrapDialogTitle>
-        <DialogContent dividers sx={{ width: 300 }}>
-          <Typography gutterBottom>
+        <DialogContent dividers sx={{ color : '#fff', width: 300 , backgroundColor : '#27292e', }}>
+          <Typography gutterBottom  sx={{ color : '#fff',backgroundColor : '#3a3c48', border :'none'}}>
             <ConnectToMetamask
               dispatcher={dispatcher}
               handleClose={handleClose}

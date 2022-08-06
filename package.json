@@ -14,6 +14,10 @@
   "dependencies": {
     "@chainsafe/chainbridge-ui-core": "1.0.3",
     "@changesets/cli": "^2.14.1",
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.8.4",
     "ethers": "5.4.5",
     "prettier": "2.1.2",
     "wsrun": "^5.2.4"

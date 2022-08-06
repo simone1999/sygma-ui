@@ -24,7 +24,7 @@ const SimpleTokenInput: React.FC<ITokenInput> = ({
 
   return (
     <>
-      <FormikTextInput
+      <FormikTextInput 
         className={classNames?.input}
         disabled={disabled}
         name={name}

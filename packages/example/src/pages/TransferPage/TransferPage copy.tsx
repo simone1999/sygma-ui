@@ -8,7 +8,6 @@ import Button from "@mui/material/Button";
 import clsx from "clsx";
 import SendToMobileOutlinedIcon from '@mui/icons-material/SendToMobileOutlined';
 import '../../app.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {
   useBridge,
@@ -160,6 +159,7 @@ const TransferPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <section>
           <SelectDestinationNetwork
+            label="Destination Network"
             // disabled={!homeConfig || formState.isSubmitting}
             options={destinationChains.map((dc: any) => ({
               label: dc.name,
@@ -169,7 +169,6 @@ const TransferPage = () => {
             value={destinationChainConfig?.domainId}
           />
         </section>
-        {/* -----------------DESTINATION NETWORK----------------- */}
         <section className={classes.currencySection}>
           <section>
             <TokenSelectInput 
@@ -178,7 +177,7 @@ const TransferPage = () => {
               tokens={tokens ?? []}
               name="token"
               disabled={!destinationChainConfig }
-              label={``}
+              label={`Balance: `}
               className={classes.generalInput}
               sync={(tokenAddress) => {
                 setPreflightDetails({
@@ -197,7 +196,7 @@ const TransferPage = () => {
                       label: (
                         <div className={classes.tokenItem}>
                           {tokens[t]?.imageUri && (
-                            <img 
+                            <img
                               src={showImageUrl(tokens[t]?.imageUri)}
                               alt={tokens[t]?.symbol}
                             />
@@ -205,19 +204,11 @@ const TransferPage = () => {
                           <span>{tokens[t]?.symbol || t}</span>
                         </div>
                       ),
-                    })) : 
-                        {
-                      //   ({selected : "selected",
-                      //     value : "val",
-                      //   label : (
-                      //     <div className={classes.tokenItem}>
-                      //   <span>{"ICE"}</span>
-                      // </div>
-                  }
+                    }))
+                  : []
               }
             />
           </section>
-            {/* -----------------CHOOSE TOKEN-----------------  */}
           <section>
             <div>
               <TokenInput 
@@ -241,7 +232,6 @@ const TransferPage = () => {
             </div>
           </section>
         </section>
-           {/* -----------------INPUT DESTINATION ADDRESS-----------------  */}
         <section>
           <AddressInput 
             disabled = {false}
@@ -258,8 +248,6 @@ const TransferPage = () => {
             
           />
         </section>
-        {/* -----------------FEES-----------------  */}
-
         <Fees
           amountFormikName="tokenAmount"
           className={classes.fees}
@@ -278,8 +266,6 @@ const TransferPage = () => {
           }
           amount={watchAmount}
         />
-
-        {/* -----------------SWAP BUTTON-----------------  */}
         <section>
           <Button
             disabled={!destinationChainConfig || formState.isSubmitting}
@@ -287,25 +273,18 @@ const TransferPage = () => {
             fullWidth
             variant="contained"
             sx={{
-              
               borderRadius : '20px',
               height : '50px',
-              fontWeight : 'bold',
-              backgroundColor : '#2792d6',
+              backgroundColor : '#3a3d47',
               color : '#fff',
               fontSize : '15px',
               ":hover": {
-                backgroundColor : '#2792d6',
+                backgroundColor: "#4c4f5c",
                 opacity: 0.9,
               },
-              ":disabled": {
-                backgroundColor : '#3a3c48',
-                color : '#6a7287'
-              },
-
             }}
           >
-              {/*<FontAwesomeIcon icon="cog" /> <FontAwesomeIcon icon="check-square" />*/}SWAP
+           SWAP
           </Button>
         </section>
         <section>

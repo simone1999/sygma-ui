@@ -1,5 +1,5 @@
 import { createStyles, ITheme, makeStyles } from "@chainsafe/common-theme";
-
+import "../../app.css";
 export const useStyles = makeStyles(
   ({ animation, constants, palette, breakpoints }: ITheme) => {
     return createStyles({
@@ -14,6 +14,7 @@ export const useStyles = makeStyles(
           paddingTop: 20,
           marginTop: 55,
         },
+        backgroundColor : "#0d1321",
       },
       inner: {
         // paddingTop: (constants.navItemHeight as number) * 2,
@@ -43,6 +44,7 @@ export const useStyles = makeStyles(
       explorerMainContent: {
         width: "100%",
         height: "100%",
+        
         margin: "0 auto",
       },
       pageArea: {

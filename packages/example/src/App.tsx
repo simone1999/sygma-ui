@@ -17,7 +17,7 @@ import {
 import { AppWrapper } from "./layouts";
 import { utils } from "ethers";
 import "@chainsafe/common-theme/dist/font-faces.css";
-
+import "./app.css";
 if (
   process.env.NODE_ENV === "production" &&
   process.env.REACT_APP_SENTRY_DSN_URL &&

@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { initializeConnector } from "@web3-react/core";
 import { WalletConnect } from "@web3-react/walletconnect";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, ButtonProps } from "@mui/material";
 import { WalletconnectIcon } from "@fusion-icons/react/web3";
+import styled from "styled-components";
+import logo_walletconnect from '../../media/Icons/wallet_connect.png';
 
 function convertToWc() {
   const result = window.__RUNTIME_CONFIG__.CHAINBRIDGE.chains.map((chain) => [
@@ -72,16 +74,26 @@ const ConnectToWallet = ({
     }
   }, [isActive]);
 
+  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+    color: '#fff',
+    textTransform : "capitalize" ,
+    fontFamily : "Inter",
+    fontWeight : "500",
+    paddingLeft : "20px",
+    paddingRight : "20px",
+    marginTop : '5px',
+    backgroundColor: "#3a3c48",
+    borderColor : "#3a3c48",
+    ':hover': {
+      backgroundColor: "#3a3c48",
+    },
+  }));
+
   return (
-    <Button
+    <ColorButton
       size="large"
       endIcon={
-        <WalletconnectIcon
-          width="32"
-          height="32"
-          strokeWidth="2"
-          stroke="#1976d2"
-        />
+        <img src={logo_walletconnect} alt="Logo" />
       }
       fullWidth
       variant="outlined"
@@ -92,7 +104,7 @@ const ConnectToWallet = ({
       disabled={isLoading}
     >
       WalletConnect
-    </Button>
+    </ColorButton>
   );
 };
 

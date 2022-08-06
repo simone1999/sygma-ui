@@ -13,7 +13,7 @@ const CustomDrawer: React.FC<ICustomDrawerProps> = ({
   const classes = useStyles();
 
   return (
-    <Drawer
+    <Drawer 
       classNames={{
         backdrop: classes.backdrop,
       }}

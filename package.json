@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@chainsafe/chainbridge-ui-core": "1.0.3",
+    "@chainsafe/chainbridge-sdk-core": "link:.packages/sdk-core",
     "@changesets/cli": "^2.14.1",
     "ethers": "5.4.5",
     "prettier": "2.1.2",
@@ -23,6 +24,7 @@
     "build:ui": "yarn wsrun -p @chainsafe/chainbridge-ui -c build",
     "build:explorer": "yarn wsrun -p @chainsafe/explorer-ui -c build",
     "start:basic": "yarn wsrun -p @chainsafe/chainbridge-basic -c start",
+    "build:sdk-core": "yarn wsrun -p @chainsafe/chainbridge-sdk-core -c build",
     "build:core": "yarn wsrun -p @chainsafe/chainbridge-ui-core -c build",
     "publish:core": "yarn wsrun -p @chainsafe/chainbridge-ui-core -c publish",
     "sentry:ui": "yarn wsrun -p @chainsafe/chainbridge-ui -c sentry",

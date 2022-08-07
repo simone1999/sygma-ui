@@ -10,6 +10,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -25,10 +26,4 @@ yarn-error.log*
 .env
 .vscode
 
-yarn.lock
-
-# runtime config
-public/chainbridge-runtime-config.js
-
-# IDE
-.idea/
+/node1

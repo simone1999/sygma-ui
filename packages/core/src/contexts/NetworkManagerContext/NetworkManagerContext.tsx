@@ -54,6 +54,9 @@ export type TransitMessage = {
 
 export type TransactionStatus =
   | "Initializing Transfer"
+  | "Approve 0"
+  | "Approve"
+  | "Deposit"
   | "In Transit"
   | "Transfer Completed"
   | "Transfer Aborted";

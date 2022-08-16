@@ -1,8 +1,10 @@
 import React from "react";
-import { CustomDrawer } from "../../components";
 import { Button, Typography } from "@chainsafe/common-components";
 import { shortenAddress } from "../../utils/Helpers";
 import { useStyles } from "./styles";
+import { Box,  Dialog,  Grid,  Modal } from "@mui/material";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 interface IPreflightModalTransferProps {
   open: boolean;
@@ -30,58 +32,78 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
   const classes = useStyles();
 
   return (
-    <CustomDrawer
-      className={classes.root}
-      classNames={{
-        backdrop: classes.backdrop,
+    <Dialog
+      PaperProps={{
+        style: { borderRadius: '15px'}
       }}
-      size={430}
+      className={classes.root}
       open={open}
-    >
-      <Typography variant="h3" component="h2">
+    > <Box
+        sx={{
+          width: '100%',
+          px: "10%",
+          pt: "40px",
+          pb: "10px",
+          backgroundColor: "#1d1f24",
+          color : "#fff"
+        }}>
+        <Button style={{
+          position : "absolute",
+          float: 'right',
+          top : 5,
+          right : 0,
+          backgroundColor: "#1d1f24",
+          border: "none",
+        }} onClick={close}><CancelIcon /></Button>
+        <Typography style={{
+          fontWeight: 'bold',
+          fontSize: "1.2rem",
+          color: "#2792d6"
+        }}>
         Pre-flight check
       </Typography>
       <Typography className={classes.subtitle} variant="h5" component="p">
-        Please be advised this is an experimental application:
+        Please be advised of the risks using this and most other bridges:
       </Typography>
       <ul>
         <li>
-          <Typography variant="h5">
+          <Typography className={classes.list_agg} variant="body2">
             You will not be able to cancel the transaction once you submit it.
           </Typography>
         </li>
         <li>
-          <Typography variant="h5">
-            Your transaction could get stuck for an indefinite amount of time
-          </Typography>
-        </li>
-        <li>
-          <Typography variant="h5">
+          <Typography className={classes.list_agg} variant="body2">
             Funds cannot be returned if they are sent to the wrong address.
           </Typography>
         </li>
-        <li>
-          <Typography variant="h5">
-            The transaction fee may be higher than expected.
+        </ul>
+        <Typography className={classes.agreement} variant="body2" component="p">
+          I agree and want to send{":"}<hr />
           </Typography>
-        </li>
-      </ul>
-      <Typography className={classes.agreement} variant="h5" component="p">
-        I agree and want to send{" "}
-        <strong>
-          {value} {tokenSymbol}
-        </strong>{" "}
-        from&nbsp;
-        <strong>{shortenAddress(sender)}</strong> on{" "}
-        <strong>{sourceNetwork}</strong> to&nbsp;
-        <strong>{shortenAddress(receiver)}</strong> on{" "}
-        <strong>{targetNetwork}</strong>.
-      </Typography>
+        <Grid container spacing={2} columns={12}>
+        <Grid item xs={3}>
+          <Typography>amount<br/></Typography>
+          <Typography>from<br/></Typography>
+          <Typography>chain<br/></Typography>
+          <Typography>to<br/></Typography>
+          <Typography>chain<br/></Typography>
+        </Grid>
+        <Grid item xs={9}>
+          <Typography>: <strong> {value} {tokenSymbol}</strong><br/></Typography>
+          <Typography>: <strong>{shortenAddress(sender)}</strong> <br/></Typography>
+          <Typography>: <strong>{sourceNetwork}</strong> <br/></Typography>
+          <Typography>: <strong>{shortenAddress(receiver)}</strong><br/></Typography>
+          <Typography>: <strong>{targetNetwork}</strong><br/></Typography>
+        </Grid>
+      </Grid>
+      <br/>
       <Button onClick={start} className={classes.startButton} fullsize>
         Start Transfer
       </Button>
-      <Button onClick={close}>Back</Button>
-    </CustomDrawer>
+
+      </Box>
+
+    </Dialog>
   );
 };
 

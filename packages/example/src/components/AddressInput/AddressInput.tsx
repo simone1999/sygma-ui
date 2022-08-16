@@ -6,6 +6,8 @@ import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { InputAdornment, Typography } from "@mui/material";
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 interface IAddressInput {
   senderAddress: string;
@@ -33,9 +35,12 @@ const AddressInput: React.FC<IAddressInput> = ({
 }: IAddressInput) => {
   const { field, fieldState } = useController({ name, control });
 
-  const [stored, setStored] = useState<string | undefined>();
+  const [stored, setStored] = useState<string | undefined>("");
 
   const toggleReceiver = useCallback(() => {
+    if (senderAddress == "undefined") {
+        return
+    }
     if (stored === undefined) {
       setStored(field.value);
       setValue(name, senderAddress);
@@ -46,24 +51,49 @@ const AddressInput: React.FC<IAddressInput> = ({
   }, [name, senderAddress, field, setStored, setValue]);
 
   return (
-    <FormControl disabled={disabled} fullWidth>
-      <>
-        <TextField
-          error={!!fieldState.error}
-          helperText={fieldState.error ? fieldState.error.message : undefined}
-          fullWidth
-          {...field}
-          label={label}
-          placeholder={placeholder}
-          disabled={Boolean(disabled && !stored)}
-        />
-      </>
+    <FormControl sx={{ color: '#fff' }} disabled={disabled} fullWidth>
+      {sendToSameAccountHelper && (
+        <>
+          <Typography sx={{
+                      color : "#b9c5cb", fontSize : '12px', marginBottom : '5px',
+                    }}
+                  variant="body1">Destination address
+                  </Typography>
+            <TextField sx={{
+                input: { color: '#fff', },
+                label: { color: '#b9c5cb', fontSize: '15px'},
+                // width : '450px',
+                color : '#fff',
+                border :'1px solid #4c4f5c',
+                borderRadius : '10px',
+                fontSize : '15px',
+                padding : '5px',
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start" sx={{color: '#4c4f5c'}}>
+                  <AssignmentIndIcon  />
+                </InputAdornment>
+              ),
+            }}
+              variant = "standard"
+              error={!!fieldState.error}
+              helperText={fieldState.error ? fieldState.error.message : undefined}
+              fullWidth
+              {...field}
+              // label={label}
+              placeholder={placeholder}
+              disabled={Boolean(disabled || stored !== undefined)}
+            />
+          </>
+        )}
       {sendToSameAccountHelper && (
         <FormGroup sx={{ my: 1 }}>
-          <FormControlLabel
+          <FormControlLabel sx={{ fontSize: '10px', color : '#babcc0', fontFamily : "sans-serif"}}
             control={
-              <Checkbox
+              <Checkbox sx={{color : "#fff" }}
                 size="small"
+                disabled={disabled || senderAddress == "undefined"}
                 checked={stored !== undefined}
                 onChange={() => toggleReceiver()}
               />

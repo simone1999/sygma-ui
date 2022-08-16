@@ -74,7 +74,7 @@ const TransferPage = () => {
   });
 
   useEffect(() => {
-    if (walletType !== "select" && walletConnecting === true) {
+    if (walletType !== "select" && walletConnecting) {
       setWalletConnecting(false);
     } else if (walletType === "select") {
       setWalletConnecting(true);
@@ -96,7 +96,7 @@ const TransferPage = () => {
       defaultValues: {
         token: "",
         tokenAmount: 0,
-        receiver: "",
+        receiver: `${address}` !== "undefined" ? `${address}`: "",
       },
     });
 
@@ -129,7 +129,7 @@ const TransferPage = () => {
         <section>
           <SelectDestinationNetwork
             label="Destination Network"
-            disabled={!homeConfig || formState.isSubmitting}
+            disabled={!homeConfig || formState.isSubmitting }
             options={destinationChains.map((dc: any) => ({
               label: dc.name,
               value: dc.domainId,
@@ -201,7 +201,8 @@ const TransferPage = () => {
         </section>
         <section>
           <AddressInput
-            disabled={!destinationChainConfig || formState.isSubmitting}
+            disabled = {false}
+            // disabled={!destinationChainConfig || formState.isSubmitting}
             name="receiver"
             label="Destination Address"
             placeholder="Please enter the receiving address"
@@ -226,21 +227,31 @@ const TransferPage = () => {
           amount={watchAmount}
         />
         <section>
-          <Button
+        <Button
             disabled={!destinationChainConfig || formState.isSubmitting}
             type="submit"
             fullWidth
             variant="contained"
             sx={{
-              backgroundColor: "#262626",
-              color: "#ffffff",
+              
+              borderRadius : '20px',
+              height : '50px',
+              fontWeight : 'bold',
+              backgroundColor : '#2792d6',
+              color : '#fff',
+              fontSize : '15px',
               ":hover": {
-                backgroundColor: "#262626",
+                backgroundColor : '#2792d6',
                 opacity: 0.9,
               },
+              ":disabled": {
+                backgroundColor : '#3a3c48',
+                color : '#6a7287'
+              },
+
             }}
           >
-            Start transfer
+              TRANSFER
           </Button>
         </section>
         <section>

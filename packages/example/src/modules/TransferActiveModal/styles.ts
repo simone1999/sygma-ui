@@ -5,8 +5,11 @@ export const useStyles = makeStyles(
     createStyles({
       root: {
         width: "100%",
+        position : "absolute",
       },
       inner: {
+        position : "absolute",
+        color: "#1d1f24",
         width: "100% !important",
         maxWidth: "unset !important",
         display: "flex",
@@ -23,6 +26,8 @@ export const useStyles = makeStyles(
         transitionDuration: `${animation.transform}ms`,
       },
       heading: {
+        fontSize: '50%',
+        fontWeight : 'bold',
         marginBottom: constants.generalUnit,
         whiteSpace: "nowrap",
       },
@@ -30,13 +35,14 @@ export const useStyles = makeStyles(
         ...typography.h4,
         height: 40,
         width: 40,
+        marginBottom : "10px",
         marginRight: constants.generalUnit * 2,
         borderRadius: "50%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         border: `1px solid ${palette.additional["transactionModal"][2]}`,
-        color: palette.additional["transactionModal"][3],
+        color: "#fff",
         "& svg": {
           height: 20,
           width: 20,
@@ -44,6 +50,7 @@ export const useStyles = makeStyles(
         },
       },
       content: {
+        fontFamily : "Fira Code",
         display: "flex",
         flexDirection: "column",
       },
@@ -95,7 +102,7 @@ export const useStyles = makeStyles(
         },
       },
       warning: {
-        marginTop: constants.generalUnit * 3.5,
+        marginTop: constants.generalUnit * 10.5,
         display: "block",
         fontWeight: 600,
       },

@@ -17,22 +17,54 @@ import TransferCompleteBody from "./TransferCompleteBody";
 import ErrorTransferBody from "./ErrorTransferBody";
 
 import { useStyles } from "./styles";
+import { Box, Modal } from "@mui/material";
 
 interface ITransferActiveModalProps {
   open: boolean;
   close: () => void;
 }
 
+const style = {
+  position: 'absolute' as 'absolute',
+  borderRadius : '20px',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',
+  bgcolor: '#1e1f24',
+    color : "#fff",
+    boxShadow: 24,
+    p: 4,
+  };
+
 const getTransactionStateIndicator = (status?: TransactionStatus) => {
   const tranactionStatuses: { [key: string]: string | React.ReactNode } = {
     "Initializing Transfer": "1",
-    "In Transit": "2",
-    "Transfer Completed": "3",
+    "Approve 0": "1.1",
+    "Approve": "2",
+    "Deposit": "3",
+    "In Transit": "4",
+    "Transfer Completed": "5",
     default: <ErrorIcon />,
   };
   if (!status) return tranactionStatuses["default"];
 
   return tranactionStatuses[status] || tranactionStatuses["default"];
+};
+
+const getTransactionStateProgress = (status?: TransactionStatus) => {
+  const tranactionProgress: { [key: string]: number } = {
+    "Initializing Transfer": 0,
+    "Approve 0": 10,
+    "Approve": 20,
+    "Deposit": 40,
+    "In Transit": 60,
+    "Transfer Completed": 100,
+    default: 0
+  };
+  if (!status) return tranactionProgress["default"];
+
+  return tranactionProgress[status] || tranactionProgress["default"];
 };
 
 const getTransactionStateHeader = (
@@ -42,9 +74,16 @@ const getTransactionStateHeader = (
 ) => {
   const tranactionStatuses: { [key: string]: string } = {
     "Initializing Transfer": "Initializing Transfer",
+    "Approve 0": "Seting token allowance to 0",
+    "Approve": "Setting token allowance",
+    "Deposit": "Sending Bridge deposit",
     "In Transit": `In Transit (${
       Number(depositVotes) < (relayerThreshold || 0)
-        ? `${depositVotes}/${relayerThreshold} signatures needed`
+        ? (
+              relayerThreshold !== 1?
+                `${depositVotes}/${relayerThreshold} signatures needed` 
+                : `waiting for relayer`
+          )
         : "Executing proposal"
     })`,
     "Transfer Completed": "Transfer Completed",
@@ -77,6 +116,9 @@ const TransferActiveModal: React.FC<ITransferActiveModalProps> = ({
   const getTransactionStateBody = (status?: TransactionStatus) => {
     const tranactionStatuses: { [key: string]: React.ReactNode } = {
       "Initializing Transfer": <InitTransferBody classes={classes} />,
+      "Approve 0": <InitTransferBody classes={classes} />,
+      "Approve": <InitTransferBody classes={classes} />,
+      "Deposit": <InitTransferBody classes={classes} />,
       "In Transit": (
         <InTransitBody
           classes={classes}
@@ -113,18 +155,29 @@ const TransferActiveModal: React.FC<ITransferActiveModalProps> = ({
 
   return (
     <CustomModal
-      className={classes.root}
-      injectedClass={{
-        inner: classes.inner,
-      }}
       active={open}
       closePosition="none"
     >
-      <LinearProgress
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
+       <Box sx={style} >
+
+      <section >
+        <div className={classes.stepIndicator}>
+          {getTransactionStateIndicator(transactionStatus)}
+        </div>
+      </section>
+      <section className={classes.content}>
+        <Typography className={classes.heading}
+          sx={{fontWeight : 'bold', fontSize : "1.2rem", color : "#2792d6"}}
+        >
+          {getTransactionStateHeader(
+            transactionStatus,
+            depositVotes,
+            relayerThreshold
+          )}
+          </Typography>
+          <LinearProgress
+          sx={{
+          borderRadius : '15px',
           width: "100%",
           "& > *": {
             borderRadius: "0 !important",
@@ -133,23 +186,13 @@ const TransferActiveModal: React.FC<ITransferActiveModalProps> = ({
             },
           },
         }}
-        value={transactionStatus !== "Transfer Completed" ? -1 : 100}
-      />
-      <section>
-        <div className={classes.stepIndicator}>
-          {getTransactionStateIndicator(transactionStatus)}
-        </div>
-      </section>
-      <section className={classes.content}>
-        <Typography className={classes.heading} variant="h5" component="h5">
-          {getTransactionStateHeader(
-            transactionStatus,
-            depositVotes,
-            relayerThreshold
-          )}
-        </Typography>
+          variant="determinate"
+          value={getTransactionStateProgress(transactionStatus)}
+          />
+
         {getTransactionStateBody(transactionStatus)}
-      </section>
+        </section>
+        </Box>
     </CustomModal>
   );
 };

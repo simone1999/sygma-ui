@@ -5,10 +5,15 @@ export const useStyles = makeStyles(({ constants, palette, zIndex }: ITheme) =>
     root: {
       zIndex: zIndex?.blocker,
       position: "absolute",
+      width : "100%",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+
       "& li": {
         position: "relative",
         padding: `${constants.generalUnit}px 0 ${constants.generalUnit}px ${
-          constants.generalUnit * 8
+          constants.generalUnit * 4
         }px`,
         "&:before": {
           content: "''",
@@ -19,7 +24,7 @@ export const useStyles = makeStyles(({ constants, palette, zIndex }: ITheme) =>
           borderRadius: "50%",
           position: "absolute",
           top: "50%",
-          left: constants.generalUnit * 4,
+          left: constants.generalUnit * 2,
           transform: "translate(-50%, -50%)",
         },
       },
@@ -28,15 +33,20 @@ export const useStyles = makeStyles(({ constants, palette, zIndex }: ITheme) =>
       margin: `${constants.generalUnit * 2}px 0`,
     },
     agreement: {
+      justifyContent: 'space-between',
       margin: `${constants.generalUnit * 2}px 0`,
     },
+    list_agg: {
+      fontSize : '0.7rem',
+    },
     startButton: {
-      backgroundColor: palette.additional["preflight"][1],
-      color: palette.additional["preflight"][2],
+      backgroundColor: "#2792d6",
+      borderRadius: "20px",
+      fontWeight : "bold",
+      color: "#fff",
       marginBottom: constants.generalUnit * 2,
     },
     backdrop: {
-      position: "absolute",
       zIndex: zIndex?.layer4,
     },
   })

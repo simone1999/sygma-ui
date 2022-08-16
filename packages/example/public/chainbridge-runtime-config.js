@@ -20,6 +20,13 @@ window.__RUNTIME_CONFIG__ = {
             symbol: "ICE",
             imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D/logo.png",
             resourceId: "0x0000000000000000000000B999Ea90607a826A3E6E6646B404c3C7d11fa39D02"
+          },
+          {
+            "address": "0x55d398326f99059fF775485246999027B3197955",
+            "name": "Tether USD",
+            "symbol": "USDT",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xC7E6d7E08A89209F02af47965337714153c529F0/logo.png",
+            "resourceId": "0x0000000000000000000000C7E6d7E08A89209F02af47965337714153c529F001"
           }
         ]
       },
@@ -41,6 +48,13 @@ window.__RUNTIME_CONFIG__ = {
             imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D/logo.png",
             resourceId: "0x0000000000000000000000B999Ea90607a826A3E6E6646B404c3C7d11fa39D02"
           },
+          {
+            "address": "0xC7E6d7E08A89209F02af47965337714153c529F0",
+            "name": "Tether USD IceCream",
+            "symbol": "USDTi",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xC7E6d7E08A89209F02af47965337714153c529F0/logo.png",
+            "resourceId": "0x0000000000000000000000C7E6d7E08A89209F02af47965337714153c529F001"
+          }
         ],
       },
     ],

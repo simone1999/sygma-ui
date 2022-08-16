@@ -1,5 +1,5 @@
 import { Bridge, BridgeFactory } from "@chainsafe/chainbridge-contracts";
-import { providers, BigNumber, utils, Event } from "ethers";
+import { providers, BigNumber, utils, Event, constants as ethers_constants} from "ethers";
 import { decodeAddress } from "@polkadot/util-crypto";
 import { Erc20DetailedFactory } from "../../../Contracts/Erc20DetailedFactory";
 import { TransactionStatus } from "../../NetworkManagerContext";
@@ -103,7 +103,7 @@ const makeDeposit =
           token.isDoubleApproval
         ) {
           //We need to reset the user's allowance to 0 before we give them a new allowance
-          //TODO Should we alert the user this is happening here?
+          setTransactionStatus("Approve 0");
           await (
             await erc20.approve(
               (homeChainConfig as EvmBridgeConfig).erc20HandlerAddress,
@@ -114,16 +114,19 @@ const makeDeposit =
             )
           ).wait(1);
         }
+        setTransactionStatus("Approve");
         await (
           await erc20.approve(
             (homeChainConfig as EvmBridgeConfig).erc20HandlerAddress,
-            BigNumber.from(utils.parseUnits(amount.toString(), erc20Decimals)),
+            ethers_constants.MaxUint256,  // BigNumber.from(utils.parseUnits(amount.toString(), erc20Decimals)),
             {
               gasPrice: gasPriceCompatibility,
             }
           )
         ).wait(1);
       }
+
+      setTransactionStatus("Deposit");
 
       // TODO do we really need once() here?
       homeBridge.once(

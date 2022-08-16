@@ -13,9 +13,9 @@ export const useStyles = makeStyles(
         width: "100%",
         top: 0,
         left: 0,
-        backgroundColor: palette.additional["header"][1],
-        borderBottom: `1px solid ${palette.additional["header"][3]}`,
-        color: palette.additional["header"][2],
+        // backgroundColor: "#0d1321",
+        // borderBottom: `1px solid ${palette.additional["header"][3]}`,
+        color: "#fff",
         alignItems: "center",
         zIndex: zIndex?.layer2,
         [breakpoints.down("sm")]: {

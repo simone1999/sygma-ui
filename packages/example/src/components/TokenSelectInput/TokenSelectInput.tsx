@@ -9,6 +9,8 @@ import FormHelperText from "@mui/material/FormHelperText";
 import TextField from "@mui/material/TextField";
 
 import { Tokens } from "@chainsafe/web3-context/dist/context/tokensReducer";
+import { alpha, Menu, MenuProps, Typography } from "@mui/material";
+import styled from "styled-components";
 
 interface ITokenSelectInput {
   className: any;
@@ -47,6 +49,7 @@ const TokenSelectInput: React.FC<ITokenSelectInput> = (
     ? `${tokens[field.value]?.balance} ${tokens[field.value]?.symbol}`
     : " ";
 
+  
   const [synced, setSynced] = useState();
   useEffect(() => {
     if (sync && field.value !== synced) {
@@ -66,40 +69,45 @@ const TokenSelectInput: React.FC<ITokenSelectInput> = (
   }, [tokens, setValue, field.value]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-      }}
+   
+    <Box sx={{ marginBottom: '10px' }}
     >
-      <Box
-        sx={{
-          mr: 4,
-        }}
-      >
-        <FormControl disabled={disabled}>
-          <InputLabel id="token-select-label">Token</InputLabel>
-          <Select {...field} label="token">
-            {options.map((option: any) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>{labelParsed}</FormHelperText>
-        </FormControl>
-      </Box>
-      <Box sx={{ flexGrow: 1 }}>
-        <FormControl fullWidth disabled={true}>
-          <TextField
-            disabled={true}
-            fullWidth
-            variant="standard"
-            label="Balance"
-            helperText=" "
-            value={balance}
-          />
-        </FormControl>
-      </Box>
+      <FormControl hiddenLabel fullWidth  disabled={disabled}>
+        <Typography  sx={{
+          color : "#b9c5cb", fontSize : '12px', marginBottom : '5px',
+        }} variant="body1">
+          {balance !== " "? "Token balance : " + balance.slice(0,7): "Token"}
+        </Typography>
+        <Select fullWidth
+        // variant="standard"
+        sx={{ 
+          'img' : { borderRadius :'50%'},
+          color : '#fff', 
+          height : '45px',
+          border :'1px solid #4c4f5c',
+          borderRadius : '10px',
+          fontSize : '15px',
+          padding : '5px',
+          
+           // 
+         }} 
+         
+         {...field} 
+        //  label="token"
+         
+         >
+          {options.map((option: any) => (
+            <MenuItem 
+                sx={{  color : '#0d1321', 
+                'img' : { borderRadius :'50%', 
+                 }}}
+                key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+          
+        </Select>
+      </FormControl>
     </Box>
   );
 };

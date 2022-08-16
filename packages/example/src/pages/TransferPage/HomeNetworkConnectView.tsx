@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 
 import { WalletType } from "@chainsafe/chainbridge-ui-core";
 import { BridgeConfig } from "../../chainbridgeConfig";
+import LoginIcon from '@mui/icons-material/Login';
 
 type HomeNetworkConnectViewProps = {
   isReady: boolean | undefined;
@@ -42,18 +43,21 @@ export default function HomeNetworkConnectView({
             fullWidth
             variant="contained"
             sx={{
-              backgroundColor: "#262626",
-              color: "#ffffff",
+              borderRadius : '10px',
+              height : '50px',
+              fontWeight : 'bold',
+              backgroundColor : '#2792d6',
+              color : '#fff',
+              fontSize : '15px',
               ":hover": {
-                backgroundColor: "#262626",
-                opacity: 0.9,
-              },
+                backgroundColor : '#2792d6',
+                opacity: 0.9,}
             }}
             onClick={() => {
               setWalletType("select");
             }}
           >
-            Connect
+            <LoginIcon sx={{marginRight:'6px'}} />Connect Wallet
           </Button>
         )}
         {isReady &&
@@ -67,16 +71,25 @@ export default function HomeNetworkConnectView({
           ) : (
             <section className={classes.connected}>
               <div>
-                <Typography variant="body1">Home network</Typography>
-                <Typography
+                <Typography sx={{
+                   marginTop : '20px',
+                  color : "#b9c5cb", fontSize : '12px', 
+                }}
+                 variant="body1">Home network</Typography>
+                {/* <Typography
                   className={classes.changeButton}
                   variant="body1"
                   onClick={() => setChangeNetworkOpen(true)}
                 >
                   Change
-                </Typography>
+                </Typography> */}
               </div>
-              <Typography
+              <Typography sx={{
+                border :'1px solid #4c4f5c',
+                borderRadius : '10px',
+                  fontSize : '15px',
+                  marginTop : '10px'
+                }}
                 component="h5"
                 variant="h5"
                 className={classes.networkName}

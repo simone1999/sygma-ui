@@ -3,7 +3,7 @@ import { init, ErrorBoundary, showReportDialog } from "@sentry/react";
 import { ThemeSwitcher } from "@chainsafe/common-theme";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 
 import { ChainbridgeRoutes } from "./routes";
 import { lightTheme } from "./themes/LightTheme";
@@ -49,7 +49,8 @@ const App: React.FC<{}> = () => {
       }
     }, {});
 
-  return (
+    return (
+        // @ts-ignore
     <ErrorBoundary
       fallback={({ error, componentStack, eventId, resetError }) => (
         <div>

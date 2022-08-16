@@ -9,6 +9,7 @@ export const useStyles = makeStyles(
         flexDirection: "column",
         justifyContent: "center",
         paddingTop: 30,
+        fontFamily : "Fira Code",
         marginTop: 10,
         [breakpoints.between("sm", "xl")]: {
           paddingTop: 20,

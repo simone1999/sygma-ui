@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useNetworkManager, useChainbridge } from "@chainsafe/chainbridge-ui-core";
 import {
   Button,
@@ -12,6 +12,14 @@ const NetworkSelectModal = () => {
   const classes = useStyles();
   const { isReady, chains } = useChainbridge();
   const { walletType, setWalletType } = useNetworkManager();
+  const subStyle = { fontSize:'10', color: '#fff', fontWeight:300, fontFamily : 'Fira Code',};
+
+  useEffect(() => {
+    // skip selection if only evm chains are present
+    if(walletType === "select" && chains?.every((item) => item.type === "Ethereum")){
+      setWalletType("Ethereum")
+    }
+  }, [walletType, chains])
 
   return (
     <Modal
@@ -24,20 +32,21 @@ const NetworkSelectModal = () => {
     >
       {walletType === "select" && (
         <>
-          <Typography variant="h3" component="p">
-            Please select a wallet type
+
+          <Typography variant="h4" component="p" style= {{fontSize  : "1rem"}} >
+             Please select a wallet type
           </Typography>
           <section className={classes.buttons}>
             {chains?.every((item) => item.type === "Ethereum") ? (
-              <Button onClick={() => setWalletType("Ethereum")}>
-                Use Ethereum wallet
+              <Button className={classes.btn} onClick={() => setWalletType("Ethereum")}>
+                Use wallet
               </Button>
             ) : (
               <>
-                <Button onClick={() => setWalletType("Ethereum")}>
-                  Use Ethereum wallet
+                <Button className={classes.btn} onClick={() => setWalletType("Ethereum")}>
+                  Use wallet
                 </Button>
-                <Button onClick={() => setWalletType("Substrate")}>
+                <Button className={classes.btn} onClick={() => setWalletType("Substrate")}>
                   Use Substrate wallet
                 </Button>
               </>

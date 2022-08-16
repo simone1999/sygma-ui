@@ -1,4 +1,5 @@
 import { makeStyles, createStyles, ITheme } from "@chainsafe/common-theme";
+import { red } from "@mui/material/colors";
 
 export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
   createStyles({
@@ -7,6 +8,8 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
         constants.generalUnit * 3
       }px`,
       position: "relative",
+      color : "#fff",
+      backgroundColor : "#1e1f24",
     },
     walletArea: {
       display: "flex",
@@ -14,6 +17,7 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
       alignItems: "center",
       justifyContent: "center",
       width: "100%",
+      
     },
     connectButton: {
       margin: `${constants.generalUnit * 3}px 0 ${constants.generalUnit * 6}px`,
@@ -39,11 +43,12 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
       padding: `${constants.generalUnit * 2}px ${
         constants.generalUnit * 1.5
       }px`,
-      border: `1px solid ${palette.additional["gray"][6]}`,
+      border: `1px solid ${palette.additional["gray"][1]}`,
       borderRadius: 2,
-      color: palette.additional["gray"][9],
+      color: "#fff",
       marginTop: constants.generalUnit,
       marginBottom: constants.generalUnit * 3,
+      
     },
     formArea: {
       "&.disabled": {
@@ -105,16 +110,24 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
         cursor: "pointer",
       },
     },
-    token: {},
+    token: {
+    },
     address: {
+      backgroundColor : "#fff",
       margin: 0,
       marginBottom: constants.generalUnit * 3,
     },
-    addressInput: {},
+    addressInput: {
+      label : {
+        fontSize : '5px',
+        marginLeft : '90px'
+      }
+    },
     generalInput: {
       "& > span": {
         marginBottom: constants.generalUnit,
       },
+     
     },
     faqButton: {
       cursor: "pointer",
@@ -124,6 +137,7 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
       fill: `${palette.additional["transferUi"][1]} !important`,
     },
     tokenItem: {
+      
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",

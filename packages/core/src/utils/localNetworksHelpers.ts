@@ -5,7 +5,7 @@ import {
   Actions,
   LocalWeb3State,
   TokenInfo,
-} from "../contexts/localWeb3Context/types";
+} from "../contexts/localWeb3Context";
 import { API as OnboardAPI } from "bnc-onboard/dist/src/interfaces";
 import { Erc20Detailed } from "../Contracts/Erc20Detailed";
 
@@ -73,12 +73,12 @@ export const resetOnboard = (
 
 export const checkBalanceAndAllowance = async (
   token: Erc20Detailed,
-  decimals: number,
   dispatcher: (action: Actions) => void,
   address: string,
   spenderAddress: string | undefined
 ) => {
   if (address) {
+    const decimals: number = await token.decimals()
     const bal = await token.balanceOf(address);
     const balance = Number(utils.formatUnits(bal, decimals));
     const balanceBN = new BN(bal.toString()).shiftedBy(-decimals);
@@ -110,8 +110,9 @@ export const getTokenData = async (
   state: LocalWeb3State,
   spenderAddress: string | undefined
 ) => {
-  let tokenContracts: Array<Erc20Detailed> = [];
-  networkTokens.forEach(async (token: any) => {
+  let eventFilters = []
+
+  for (const token of networkTokens) {
     const signer = await state.provider.getSigner();
     const tokenContract = Erc20DetailedFactory.connect(token.address, signer);
 
@@ -130,8 +131,7 @@ export const getTokenData = async (
 
     if (!token.name) {
       try {
-        const tokenName = await tokenContract.name();
-        newTokenInfo.name = tokenName;
+        newTokenInfo.name = await tokenContract.name();
       } catch (error) {
         console.log(
           "There was an error getting the token name. Does this contract implement ERC20Detailed?"
@@ -140,8 +140,7 @@ export const getTokenData = async (
     }
     if (!token.symbol) {
       try {
-        const tokenSymbol = await tokenContract.symbol();
-        newTokenInfo.symbol = tokenSymbol;
+        newTokenInfo.symbol = await tokenContract.symbol();
       } catch (error) {
         console.error(
           "There was an error getting the token symbol. Does this contract implement ERC20Detailed?"
@@ -150,8 +149,7 @@ export const getTokenData = async (
     }
 
     try {
-      const tokenDecimals = await tokenContract.decimals();
-      newTokenInfo.decimals = tokenDecimals;
+      newTokenInfo.decimals = await tokenContract.decimals();
     } catch (error) {
       console.error(
         "There was an error getting the token decimals. Does this contract implement ERC20Detailed?"
@@ -165,57 +163,44 @@ export const getTokenData = async (
 
     checkBalanceAndAllowance(
       tokenContract,
-      newTokenInfo.decimals,
       dispatcher,
       state.address,
       spenderAddress
     );
 
-    const filterTokenApproval = tokenContract.filters.Approval(
-      state.address,
-      null,
-      null
+    eventFilters.push(
+      tokenContract.filters.Approval(
+        state.address,
+        null,
+        null
+      ).topics![0],
+      tokenContract.filters.Transfer(
+        state.address,
+        null,
+        null
+      ).topics![0],
+      tokenContract.filters.Transfer(
+        null,
+        state.address,
+        null
+      ).topics![0]
     );
-    const filterTokenTransferFrom = tokenContract.filters.Transfer(
-      state.address,
-      null,
-      null
-    );
-    const filterTokenTransferTo = tokenContract.filters.Transfer(
-      null,
-      state.address,
-      null
-    );
+  }
 
-    tokenContract.on(filterTokenApproval, () =>
-      checkBalanceAndAllowance(
+  state.provider.on({
+    topics: eventFilters
+  }, (filterEvent) => {
+    const tokenContract = networkTokens.find((token: { address: any; }) => token.address == filterEvent.address)
+    if(typeof tokenContract === 'undefined' ){
+      return
+    }
+    checkBalanceAndAllowance(
         tokenContract,
-        newTokenInfo.decimals,
         dispatcher,
         state.address,
         spenderAddress
-      )
-    );
-    tokenContract.on(filterTokenTransferFrom, () =>
-      checkBalanceAndAllowance(
-        tokenContract,
-        newTokenInfo.decimals,
-        dispatcher,
-        state.address,
-        spenderAddress
-      )
-    );
-    tokenContract.on(filterTokenTransferTo, () =>
-      checkBalanceAndAllowance(
-        tokenContract,
-        newTokenInfo.decimals,
-        dispatcher,
-        state.address,
-        spenderAddress
-      )
-    );
-    tokenContracts.push(tokenContract);
-  });
+    )
+  })
 };
 
 export const signMessage = async (
@@ -227,9 +212,8 @@ export const signMessage = async (
   const data = ethers.utils.toUtf8Bytes(message);
   const signer = await provider.getSigner();
   const addr = await signer.getAddress();
-  const sig = await provider.send("personal_sign", [
+  return await provider.send("personal_sign", [
     ethers.utils.hexlify(data),
     addr.toLowerCase(),
   ]);
-  return sig;
 };

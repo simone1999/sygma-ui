@@ -2,8 +2,7 @@ import React from "react";
 import { Button, Typography } from "@chainsafe/common-components";
 import { shortenAddress } from "../../utils/Helpers";
 import { useStyles } from "./styles";
-import { Box,  Dialog,  Grid,  Modal } from "@mui/material";
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Box,  Dialog,  Grid } from "@mui/material";
 import CancelIcon from '@mui/icons-material/Cancel';
 
 interface IPreflightModalTransferProps {
@@ -77,8 +76,9 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
           </Typography>
         </li>
         </ul>
+        <hr />
         <Typography className={classes.agreement} variant="body2" component="p">
-          I agree and want to send{":"}<hr />
+          I agree and want to send{":"}
           </Typography>
         <Grid container spacing={2} columns={12}>
         <Grid item xs={3}>

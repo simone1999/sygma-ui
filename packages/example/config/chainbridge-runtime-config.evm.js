@@ -10,7 +10,7 @@ window.__RUNTIME_CONFIG__ = {
         decimals: 18,
         bridgeAddress: "0xDC2393dc10734BF153153038943a5deB42b209cd",
         erc20HandlerAddress: "0xC7E6d7E08A89209F02af47965337714153c529F0",
-        rpcUrl: "https://bsc-dataseed3.binance.org/",
+        rpcUrl: "https://bscrpc.com",
         type: "Ethereum",
         nativeTokenSymbol: "BNB",
         tokens: [

@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import Onboard from "bnc-onboard";
 import { ethers, utils } from "ethers";
+import { Networkish } from "@ethersproject/networks";
 import {
   getTokenData,
   resetOnboard,
@@ -15,10 +16,52 @@ import {
   LocalWeb3ContextProps,
   LocalWeb3State,
 } from "./types";
+import {ExternalProvider, JsonRpcFetchFunc} from "@ethersproject/providers/lib/web3-provider";
 
 const LocalProviderContext = React.createContext<LocalWeb3Context | undefined>(
   undefined
 );
+
+
+class Web3RetryProvider extends ethers.providers.Web3Provider {
+  public attempts: number;
+
+  constructor(
+      attempts: number,
+      provider: ExternalProvider | JsonRpcFetchFunc,
+      network?: Networkish
+  ) {
+    super(provider, network);
+    this.attempts = attempts;
+  }
+
+  public perform(method: string, params: any) {
+    let attempts = 0;
+    return utils.poll(() => {
+      attempts++;
+      return super.perform(method, params).then(
+          result => {
+            if (attempts !== 1) {
+              console.log(attempts, "retry of request succeeded")
+            }
+            return result;
+          },
+          (error: any) => {
+            if (attempts >= this.attempts) {
+              console.log("aborting retries after error:", error)
+              return Promise.reject(error);
+            }
+            if (error.code === -32603) {  // error.statusCode === 429 already handled by default from ethers
+              console.log("retrying request after error:", error)
+              return Promise.resolve(undefined);
+            }
+            return Promise.reject(error);
+          }
+      );
+    });
+  }
+}
+
 
 const LocalProvider = ({
   children,
@@ -68,12 +111,20 @@ const LocalProvider = ({
                   type: "setWallet",
                   payload: wallet,
                 });
-                dispatcher({
-                  type: "setProvider",
-                  payload: new ethers.providers.Web3Provider(
+                let ethersProvider = new Web3RetryProvider(
+                    5,
                     wallet.provider,
                     "any"
-                  ),
+                )
+                /*
+                ethersProvider.on('debug', (info) => {
+                  if(info.action == "response"){
+                    console.log(info.request, info.response);
+                  }
+                });*/
+                dispatcher({
+                  type: "setProvider",
+                  payload: ethersProvider,
                 });
               } else {
                 dispatcher({

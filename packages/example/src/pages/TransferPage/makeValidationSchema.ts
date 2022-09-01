@@ -27,10 +27,8 @@ export default function makeValidationSchema({
   const DECIMALS =
     selectedToken && selectedToken.decimals ? selectedToken.decimals : 18;
 
-  const REGEX =
-    DECIMALS > 0
-      ? new RegExp(`^[0-9]{1,18}(.[0-9]{1,${DECIMALS}})?$`)
-      : new RegExp(`^[0-9]{1,18}?$`);
+
+  const REGEX = new RegExp(`^[0-9]{1,18}(\\.?[0-9]{0,${DECIMALS}})?$`);
   const validationSchema = yup.object().shape({
     tokenAmount: yup
       .string()

@@ -9,8 +9,7 @@ window.__RUNTIME_CONFIG__ = {
         name: "BinanceSmartChain",
         decimals: 18,
         bridgeAddress: "0xDC2393dc10734BF153153038943a5deB42b209cd",
-        erc20HandlerAddress: "0xC7E6d7E08A89209F02af47965337714153c529F0",
-        rpcUrl: "https://bsc-dataseed3.binance.org/",
+        rpcUrl: "https://bscrpc.com",
         type: "Ethereum",
         nativeTokenSymbol: "BNB",
         tokens: [
@@ -27,6 +26,13 @@ window.__RUNTIME_CONFIG__ = {
             "symbol": "USDT",
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xC7E6d7E08A89209F02af47965337714153c529F0/logo.png",
             "resourceId": "0x0000000000000000000000C7E6d7E08A89209F02af47965337714153c529F001"
+          },
+          {
+            "address": "0x28B9aed756De31B6b362aA0f23211D13093EBb79",
+            "name": "LunaGens",
+            "symbol": "LUNG",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xc3b730dD10A7e9A69204bDf6cb5A426e4f1F09E3/logo.png",
+            "resourceId": "0x000000000000000000000028B9aed756De31B6b362aA0f23211D13093EBb7901"
           }
         ]
       },
@@ -36,7 +42,6 @@ window.__RUNTIME_CONFIG__ = {
         name: "Bitgert",
         decimals: 18,
         bridgeAddress: "0x12AA82525DEfF84777fa78578A68ceB854A85f43",
-        erc20HandlerAddress: "0x8687cD1d02A28098571067ddB18F33fEF667C929",
         rpcUrl: "https://rpc.icecreamswap.com",
         type: "Ethereum",
         nativeTokenSymbol: "Brise",
@@ -54,6 +59,13 @@ window.__RUNTIME_CONFIG__ = {
             "symbol": "USDTi",
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xC7E6d7E08A89209F02af47965337714153c529F0/logo.png",
             "resourceId": "0x0000000000000000000000C7E6d7E08A89209F02af47965337714153c529F001"
+          },
+          {
+            "address": "0xc3b730dD10A7e9A69204bDf6cb5A426e4f1F09E3",
+            "name": "LunaGens",
+            "symbol": "LUNG",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xc3b730dD10A7e9A69204bDf6cb5A426e4f1F09E3/logo.png",
+            "resourceId": "0x000000000000000000000028B9aed756De31B6b362aA0f23211D13093EBb7901"
           }
         ],
       },

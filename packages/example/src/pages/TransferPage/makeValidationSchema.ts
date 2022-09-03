@@ -27,22 +27,17 @@ export default function makeValidationSchema({
   const DECIMALS =
     selectedToken && selectedToken.decimals ? selectedToken.decimals : 18;
 
-
   const REGEX = new RegExp(`^[0-9]{1,18}(\\.?[0-9]{0,${DECIMALS}})?$`);
-  const validationSchema = yup.object().shape({
+  return yup.object().shape({
     tokenAmount: yup
       .string()
       .test("Token selected", "Please select a token", (value) => {
-        if (
-          !!value &&
-          preflightDetails &&
-          tokens[preflightDetails.token] &&
-          tokens[preflightDetails.token].balance !== undefined
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+        return (
+            !!value &&
+            preflightDetails &&
+            tokens[preflightDetails.token] &&
+            tokens[preflightDetails.token].balance !== undefined
+        )
       })
       .test("InputValid", "Input invalid", (value) => {
         try {
@@ -103,5 +98,4 @@ export default function makeValidationSchema({
       })
       .required("Please add a receiving address"),
   });
-  return validationSchema;
 }

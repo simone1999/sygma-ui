@@ -1,4 +1,4 @@
-import { Bridge, BridgeFactory } from "@chainsafe/chainbridge-contracts";
+import { Bridge } from "@chainsafe/chainbridge-contracts";
 import { providers, BigNumber, utils, Event, constants as ethers_constants} from "ethers";
 import { decodeAddress } from "@polkadot/util-crypto";
 import { Erc20DetailedFactory } from "../../../Contracts/Erc20DetailedFactory";
@@ -6,7 +6,6 @@ import { TransactionStatus } from "../../NetworkManagerContext";
 
 import {
   chainbridgeConfig,
-  EvmBridgeConfig,
   BridgeConfig,
 } from "../../../chainbridgeConfig";
 
@@ -88,9 +87,10 @@ const makeDeposit =
         gasPrice
       );
 
+      const handlerAddress = await homeBridge._resourceIDToHandlerAddress(token.resourceId)
       const currentAllowance = await erc20.allowance(
-        address,
-        (homeChainConfig as EvmBridgeConfig).erc20HandlerAddress
+          address,
+          handlerAddress
       );
       console.log(
         "🚀  currentAllowance",
@@ -106,8 +106,8 @@ const makeDeposit =
           setTransactionStatus("Approve 0");
           await (
             await erc20.approve(
-              (homeChainConfig as EvmBridgeConfig).erc20HandlerAddress,
-              BigNumber.from(utils.parseUnits("0", erc20Decimals)),
+                handlerAddress,
+                BigNumber.from(utils.parseUnits("0", erc20Decimals)),
               {
                 gasPrice: gasPriceCompatibility,
               }
@@ -117,8 +117,8 @@ const makeDeposit =
         setTransactionStatus("Approve");
         await (
           await erc20.approve(
-            (homeChainConfig as EvmBridgeConfig).erc20HandlerAddress,
-            ethers_constants.MaxUint256,  // BigNumber.from(utils.parseUnits(amount.toString(), erc20Decimals)),
+              handlerAddress,
+              ethers_constants.MaxUint256,  // BigNumber.from(utils.parseUnits(amount.toString(), erc20Decimals)),
             {
               gasPrice: gasPriceCompatibility,
             }

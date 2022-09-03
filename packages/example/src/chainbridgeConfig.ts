@@ -24,7 +24,6 @@ export type BridgeConfig = {
 
 export type EvmBridgeConfig = BridgeConfig & {
   bridgeAddress: string;
-  erc20HandlerAddress: string;
   type: "Ethereum";
   //This should be the full path to display a tx hash, without the trailing slash, ie. https://etherscan.io/tx
   blockExplorer?: string;

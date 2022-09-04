@@ -112,7 +112,7 @@ const LocalProvider = ({
                   payload: wallet,
                 });
                 let ethersProvider = new Web3RetryProvider(
-                    5,
+                    7,
                     wallet.provider,
                     "any"
                 )

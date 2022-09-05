@@ -42,7 +42,7 @@ window.__RUNTIME_CONFIG__ = {
         name: "Bitgert",
         decimals: 18,
         bridgeAddress: "0x12AA82525DEfF84777fa78578A68ceB854A85f43",
-        rpcUrl: "https://serverrpc.com",
+        rpcUrl: "https://rpc.icecreamswap.com",
         type: "Ethereum",
         nativeTokenSymbol: "Brise",
         tokens: [

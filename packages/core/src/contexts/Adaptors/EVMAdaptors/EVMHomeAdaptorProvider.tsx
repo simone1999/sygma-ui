@@ -4,7 +4,7 @@ import { IHomeBridgeProviderProps } from "../interfaces";
 import { HomeBridgeContext } from "../../HomeBridgeContext";
 import { getNetworkName } from "../../../utils/Helpers";
 import { useWeb3 as useLocalWeb3 } from "../../index";
-import { evmHomeReducer } from "../../../reducers/EvmHomeReducer";
+import { evmHomeReducer } from "../../../reducers";
 
 import makeDeposit from "./makeDeposit";
 import makeWrappedToken from "./makeWrappedToken";
@@ -37,6 +37,7 @@ export const EVMHomeAdaptorProvider = ({
     setDepositNonce,
     handleSetHomeChain,
     homeChains,
+    destinationChainConfig
   } = useNetworkManager();
 
   const [evmHomeState, dispatch] = useReducer(evmHomeReducer, {
@@ -76,7 +77,7 @@ export const EVMHomeAdaptorProvider = ({
     provider,
     network
   );
-  const [bridgeFee, relayerThreshold] = useSetBridgeSettingsHook(homeBridge);
+  const {bridgeFee, bridgeFeeToken, relayerThreshold} = useSetBridgeSettingsHook(homeBridge, homeChainConfig, destinationChainConfig?.domainId, selectedToken, depositAmount, provider);
 
   const handleConnect = useCallback(async () => {
     if (wallet && wallet.connect && network) {
@@ -98,7 +99,8 @@ export const EVMHomeAdaptorProvider = ({
     homeBridge,
     provider,
     address,
-    bridgeFee
+    bridgeFee,
+    bridgeFeeToken
   );
 
   const wrapToken = makeWrappedToken(
@@ -128,6 +130,7 @@ export const EVMHomeAdaptorProvider = ({
         networkId,
         homeTransferTxHash,
         bridgeFee,
+        bridgeFeeToken,
         deposit,
         depositAmount,
         selectedToken,

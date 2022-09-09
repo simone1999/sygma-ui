@@ -136,6 +136,7 @@ function selectProvider(
             setSelectedToken: (input: string) => undefined,
             address: undefined,
             bridgeFee: undefined,
+            bridgeFeeToken: undefined,
             chainConfig: undefined,
             depositAmount: undefined,
             nativeTokenBalance: undefined,

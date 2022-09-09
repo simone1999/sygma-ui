@@ -1,6 +1,6 @@
 import { CeloProvider } from "@celo-tools/celo-ethers-wrapper";
 import { ethers, utils, BigNumber } from "ethers";
-import {BridgeFactory, Erc20HandlerFactory} from "@chainsafe/chainbridge-contracts";
+import {BridgeFactory, ERC20HandlerPercentageFeeFactory} from "@chainsafe/chainbridge-contracts";
 
 import { Erc20DetailedFactory } from "../../../Contracts/Erc20DetailedFactory";
 
@@ -77,7 +77,7 @@ export async function hasTokenSupplies(
 
     const destinationErc20Handler = await destinationBridge._resourceIDToHandlerAddress(destinationToken.resourceId)
 
-    const destinationErc20DHandlerInstance = Erc20HandlerFactory.connect(
+    const destinationErc20DHandlerInstance = ERC20HandlerPercentageFeeFactory.connect(
       destinationErc20Handler,
       provider
     );

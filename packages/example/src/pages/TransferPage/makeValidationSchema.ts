@@ -11,12 +11,14 @@ type MakeValidationSchemaOptions = {
   destinationChainConfig: any;
   preflightDetails: PreflightDetails;
   bridgeFee: any;
+  bridgeFeeToken: any;
   checkSupplies: any;
 };
 export default function makeValidationSchema({
   preflightDetails,
   tokens,
   bridgeFee,
+  bridgeFeeToken,
   homeConfig,
   destinationChainConfig,
   checkSupplies,
@@ -57,11 +59,23 @@ export default function makeValidationSchema({
           if (homeConfig?.type === "Ethereum") {
             return parseFloat(value) <= tokens[preflightDetails.token].balance;
           } else {
+            const ethFee = bridgeFeeToken ? bridgeFeeToken == "0x0000000000000000000000000000000000000000"? bridgeFee: 0 : 0;
             return (
-              parseFloat(value + (bridgeFee || 0)) <=
+              parseFloat(value + (ethFee)) <=
               tokens[preflightDetails.token].balance
             );
           }
+        }
+        return false;
+      })
+      .test("Fee", "Invalid for Fee", (value) => {
+        if (
+            value &&
+            preflightDetails &&
+            tokens[preflightDetails.token] &&
+            tokens[preflightDetails.token].balance
+        ) {
+          return bridgeFeeToken && typeof bridgeFee !== "undefined"
         }
         return false;
       })

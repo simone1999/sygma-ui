@@ -51,6 +51,7 @@ const TransferPage = () => {
     transactionStatus,
     resetDeposit,
     bridgeFee,
+    bridgeFeeToken,
     tokens,
     isReady,
     homeConfig,
@@ -60,7 +61,7 @@ const TransferPage = () => {
     checkSupplies,
   } = useChainbridge();
 
-  const { accounts, selectAccount } = useHomeBridge();
+  const { accounts, selectAccount, setSelectedToken, setDepositAmount, depositAmount} = useHomeBridge();
   const [aboutOpen, setAboutOpen] = useState<boolean>(false);
   const [walletConnecting, setWalletConnecting] = useState(false);
   const [changeNetworkOpen, setChangeNetworkOpen] = useState<boolean>(false);
@@ -85,12 +86,13 @@ const TransferPage = () => {
     preflightDetails,
     tokens,
     bridgeFee,
+    bridgeFeeToken,
     homeConfig,
     destinationChainConfig,
     checkSupplies,
   });
 
-  const { handleSubmit, control, setValue, watch, formState } =
+  const { handleSubmit, control, setValue, watch, formState, getValues } =
     useForm<PreflightDetails>({
       resolver: yupResolver(transferSchema),
       defaultValues: {
@@ -99,6 +101,14 @@ const TransferPage = () => {
         receiver: `${address}` !== "undefined" ? `${address}`: "",
       },
     });
+
+  useEffect(() => {
+      const newAmount = getValues("tokenAmount");
+      if (newAmount !== depositAmount){
+          console.log("setting depositAmount");
+          setDepositAmount(getValues("tokenAmount"));
+      }
+  });
 
   const watchToken = watch("token", "");
   const watchAmount = watch("tokenAmount", 0);
@@ -111,7 +121,9 @@ const TransferPage = () => {
     setPreflightModalOpen(true);
   };
 
-  return (
+  const feeTokenSymbol = bridgeFeeToken ? bridgeFeeToken == "0x0000000000000000000000000000000000000000" ? homeConfig?.nativeTokenSymbol : tokens[bridgeFeeToken].symbol : "";
+
+    return (
     <div className={classes.root}>
       <HomeNetworkConnectView
         isReady={isReady}
@@ -156,6 +168,7 @@ const TransferPage = () => {
                   tokenAmount: 0,
                   tokenSymbol: "",
                 });
+                setSelectedToken(tokenAddress);
               }}
               setValue={setValue}
               options={
@@ -218,7 +231,7 @@ const TransferPage = () => {
           amountFormikName="tokenAmount"
           className={classes.fees}
           fee={bridgeFee}
-          feeSymbol={homeConfig?.nativeTokenSymbol}
+          feeSymbol={feeTokenSymbol}
           symbol={
             preflightDetails && tokens[preflightDetails.token]
               ? tokens[preflightDetails.token].symbol

@@ -37,6 +37,7 @@ export const SubstrateHomeAdaptorProvider = ({
     undefined
   );
   const [bridgeFee] = useState<number>(0);
+  const [bridgeFeeToken] = useState<string>("0x0000000000000000000000000000000000000000");
 
   const [depositAmount, setDepositAmount] = useState<number | undefined>();
   const [selectedToken, setSelectedToken] = useState<string>("CSS");
@@ -156,6 +157,7 @@ export const SubstrateHomeAdaptorProvider = ({
         },
         getNetworkName: () => homeChainConfig?.name || "undefined",
         bridgeFee,
+        bridgeFeeToken,
         deposit,
         depositAmount,
         selectedToken,

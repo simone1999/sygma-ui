@@ -55,6 +55,7 @@ export interface HomeChainAdaptorContext {
   selectedToken: string;
 
   bridgeFee: number | undefined;
+  bridgeFeeToken: string | undefined;
 
   wrapTokenConfig: TokenConfig | undefined;
   wrapper: Weth | undefined;

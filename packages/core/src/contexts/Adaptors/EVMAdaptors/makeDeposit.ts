@@ -24,7 +24,8 @@ const makeDeposit =
     homeBridge?: Bridge,
     provider?: providers.Web3Provider,
     address?: string,
-    bridgeFee?: number
+    bridgeFee?: number,
+    bridgeFeeToken?: string
   ) =>
   async (
     amount: number,
@@ -62,7 +63,7 @@ const makeDeposit =
     setDepositAmount(amount);
     setSelectedToken(tokenAddress);
     const erc20 = Erc20DetailedFactory.connect(tokenAddress, signer);
-    const erc20Decimals = token.decimals ?? homeChainConfig.decimals;
+    const erc20Decimals = token.decimals ?? await erc20.decimals();
 
     const data =
       "0x" +
@@ -134,7 +135,7 @@ const makeDeposit =
         (
           destinationDomainId: number,
           resourceId: string,
-          depositNonce: number,
+          depositNonce: BigNumber,
           user: string,
           data: string,
           handlerResponse: string,
@@ -146,10 +147,13 @@ const makeDeposit =
         }
       );
 
+      await new Promise(r => setTimeout(r, 2000));  // sleep 2 seconds before sending the deposit so the log is catched
+
+      let ethFee = bridgeFeeToken == "0x0000000000000000000000000000000000000000"? bridgeFee || 0: 0
       await (
         await homeBridge.deposit(destinationChainId, token.resourceId, data, {
           gasPrice: gasPriceCompatibility,
-          value: utils.parseUnits((bridgeFee || 0).toString(), 18),
+          value: utils.parseUnits((ethFee).toString(), 18),
         })
       ).wait();
 

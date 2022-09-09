@@ -1,12 +1,12 @@
 import { Dispatch } from "react";
-import { Event } from "ethers";
+import {BigNumber, Event} from "ethers";
 import { Bridge } from "@chainsafe/chainbridge-contracts";
 import { BridgeConfig } from "../../../chainbridgeConfig";
 import {
   AddMessageAction,
   ResetAction,
   TxIsDone,
-} from "../../../reducers/TransitMessageReducer";
+} from "../../../reducers";
 import { TransactionStatus } from "../../NetworkManagerContext";
 
 const handleProposalVote = (
@@ -22,7 +22,7 @@ const handleProposalVote = (
     destinationBridge.filters.ProposalVote(null, null, null, null),
     async (
       originDomainId: number,
-      depositNonce: number,
+      depositNonce: BigNumber,
       status: number,
       dataHash: string,
       tx: Event

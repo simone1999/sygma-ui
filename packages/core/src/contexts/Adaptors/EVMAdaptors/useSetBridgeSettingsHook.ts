@@ -1,12 +1,22 @@
-import { Bridge, BridgeFactory } from "@chainsafe/chainbridge-contracts";
-import { BigNumber, utils } from "ethers";
-import { useCallback, useEffect, useState } from "react";
+import {
+  Bridge
+} from "@chainsafe/chainbridge-contracts";
+import {BigNumber, providers, utils} from "ethers";
+import { useEffect, useState } from "react";
+import {BridgeConfig } from "../../../chainbridgeConfig";
+import {Erc20DetailedFactory} from "../../../Contracts/Erc20DetailedFactory";
 
-export function useSetBridgeSettingsHook(homeBridge?: Bridge) {
+export function useSetBridgeSettingsHook(
+    homeBridge?: Bridge,
+    homeChainConfig?:BridgeConfig,
+    destinationDomainId?: number,
+    selectedToken?: string,
+    depositAmount?: number,
+    provider?: providers.Web3Provider
+) {
   const [bridgeFee, setBridgeFee] = useState<number | undefined>();
-  const [relayerThreshold, setRelayerThreshold] = useState<number | undefined>(
-    undefined
-  );
+  const [bridgeFeeToken, setBridgeFeeToken] = useState<string | undefined>();
+  const [relayerThreshold, setRelayerThreshold] = useState<number | undefined>();
 
   useEffect(() => {
     const getRelayerThreshold = async () => {
@@ -17,15 +27,63 @@ export function useSetBridgeSettingsHook(homeBridge?: Bridge) {
         setRelayerThreshold(threshold);
       }
     };
-    const getBridgeFee = async () => {
-      if (homeBridge) {
-        const bridgeFee = Number(utils.formatEther(await homeBridge._fee()));
-        setBridgeFee(bridgeFee);
-      }
-    };
     getRelayerThreshold();
-    getBridgeFee();
   }, [homeBridge]);
 
-  return [bridgeFee, relayerThreshold];
+  useEffect(() => {
+    const getBridgeFee = async () => {
+
+      if (homeBridge && selectedToken &&selectedToken !== "" && homeChainConfig && provider && depositAmount) {
+        const token = homeChainConfig.tokens.find(
+            (token) => token.address === selectedToken
+        );
+        if (!token) {
+          console.log("Token not found");
+          return;
+        }
+        const signer = provider.getSigner();
+        const recipient = await signer.getAddress();
+        const erc20 = Erc20DetailedFactory.connect(token.address, signer);
+        const erc20Decimals = token.decimals ?? await erc20.decimals();
+
+        const data =
+            "0x" +
+            utils
+                .hexZeroPad(
+                    BigNumber.from(
+                        utils.parseUnits(depositAmount.toString(), erc20Decimals)
+                    ).toHexString(),
+                    32
+                )
+                .substr(2) + // Deposit Amount (32 bytes)
+            utils
+                .hexZeroPad(utils.hexlify((recipient.length - 2) / 2), 32)
+                .substr(2) + // len(recipientAddress) (32 bytes)
+            recipient.substr(2); // recipientAddress (?? bytes)
+
+        try{
+          const {feeToken, fee} = await homeBridge.calculateFee(
+              BigNumber.from(destinationDomainId),
+              token.resourceId,
+              data
+          );
+          setBridgeFee(Number(utils.formatEther(fee)));
+          setBridgeFeeToken(feeToken);
+        } catch (e) {
+          setBridgeFee(undefined);
+          setBridgeFeeToken(undefined);
+          return
+        }
+
+        // const bridgeFee = Number(utils.formatEther(await homeBridge._fee()));
+      }
+    };
+    getBridgeFee();
+  }, [selectedToken, depositAmount])
+
+  return {
+    bridgeFee,
+    bridgeFeeToken,
+    relayerThreshold
+  };
 }

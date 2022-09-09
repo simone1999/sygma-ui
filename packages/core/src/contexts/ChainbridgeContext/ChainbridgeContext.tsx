@@ -38,6 +38,7 @@ type ChainbridgeContext = {
   depositNonce?: string;
   depositAmount?: number;
   bridgeFee?: number;
+  bridgeFeeToken?: string,
   // inTransitMessages: TransitState;
   // transferTxHash?: string;
   // setHomeTransferTxHash: (input: string) => void;
@@ -92,6 +93,7 @@ const ChainbridgeProvider = ({
     address,
     selectedToken,
     bridgeFee,
+    bridgeFeeToken,
     depositAmount,
     isReady,
     wrapTokenConfig,
@@ -157,6 +159,7 @@ const ChainbridgeProvider = ({
         relayerThreshold,
         depositNonce,
         bridgeFee,
+        bridgeFeeToken,
         transactionStatus,
         depositAmount: depositAmount,
         selectedToken: selectedToken,

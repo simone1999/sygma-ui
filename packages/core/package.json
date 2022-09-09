@@ -18,7 +18,7 @@
     "@babel/core": "^7.12.3",
     "@babel/runtime": "^7.12.1",
     "@celo-tools/celo-ethers-wrapper": "^0.0.5",
-    "@chainsafe/chainbridge-contracts": "2.0.0",
+    "@chainsafe/chainbridge-contracts": "simone1999/chainbridge-solidity#f10aa953ccdfe2046c33c9ad5dc318a64cd55675",
     "@chainsafe/web3-context": "1.2.0",
     "@polkadot/api": "3.11.1",
     "@polkadot/extension-dapp": "0.37.1",

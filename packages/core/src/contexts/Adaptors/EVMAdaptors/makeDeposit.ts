@@ -1,5 +1,5 @@
 import { Bridge } from "@chainsafe/chainbridge-contracts";
-import { providers, BigNumber, utils, Event, constants as ethers_constants} from "ethers";
+import { providers, BigNumber, utils, constants as ethers_constants} from "ethers";
 import { decodeAddress } from "@polkadot/util-crypto";
 import { Erc20DetailedFactory } from "../../../Contracts/Erc20DetailedFactory";
 import { TransactionStatus } from "../../NetworkManagerContext";
@@ -129,33 +129,19 @@ const makeDeposit =
 
       setTransactionStatus("Deposit");
 
-      // TODO do we really need once() here?
-      homeBridge.once(
-        homeBridge.filters.Deposit(null, null, null, address, null, null),
-        (
-          destinationDomainId: number,
-          resourceId: string,
-          depositNonce: BigNumber,
-          user: string,
-          data: string,
-          handlerResponse: string,
-          tx: Event
-        ) => {
-          setDepositNonce(`${depositNonce.toString()}`);
-          setTransactionStatus("In Transit");
-          setHomeTransferTxHash(tx.transactionHash);
-        }
-      );
-
-      await new Promise(r => setTimeout(r, 2000));  // sleep 2 seconds before sending the deposit so the log is catched
-
       let ethFee = bridgeFeeToken == "0x0000000000000000000000000000000000000000"? bridgeFee || 0: 0
-      await (
-        await homeBridge.deposit(destinationChainId, token.resourceId, data, {
-          gasPrice: gasPriceCompatibility,
-          value: utils.parseUnits((ethFee).toString(), 18),
-        })
-      ).wait();
+
+      const depositTransaction = await homeBridge.deposit(destinationChainId, token.resourceId, data, {
+        gasPrice: gasPriceCompatibility,
+        value: utils.parseUnits((ethFee).toString(), 18),
+      });
+      const depositReceipt = await depositTransaction.wait();
+      setHomeTransferTxHash(depositTransaction.hash);
+      const depositEvent = depositReceipt.events!.find(
+          (event) => event.event === "Deposit"
+      );
+      setDepositNonce(`${depositEvent!.args!.depositNonce.toString()}`);
+      setTransactionStatus("In Transit");
 
       return Promise.resolve();
     } catch (error) {

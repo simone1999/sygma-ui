@@ -67,7 +67,20 @@ export function useSetBridgeSettingsHook(
               token.resourceId,
               data
           );
-          setBridgeFee(Number(utils.formatEther(fee)));
+          const feeTokenInfos = homeChainConfig.tokens.find(
+              (token) => token.address === feeToken
+          );
+          let decimals;
+          if (!feeTokenInfos || !feeTokenInfos.decimals) {
+            const feeTokenErc20 = Erc20DetailedFactory.connect(feeToken, signer);
+            decimals = await feeTokenErc20.decimals();
+            if (feeTokenInfos) {
+              feeTokenInfos.decimals = decimals;
+            }
+          } else {
+            decimals = feeTokenInfos.decimals;
+          }
+          setBridgeFee(Number(utils.formatUnits(fee, decimals)));
           setBridgeFeeToken(feeToken);
         } catch (e) {
           setBridgeFee(undefined);

@@ -80,8 +80,8 @@ export const checkBalanceAndAllowance = async (
   if (address) {
     const decimals: number = await token.decimals()
     const bal = await token.balanceOf(address);
-    const balance = Number(utils.formatUnits(bal, decimals));
     const balanceBN = new BN(bal.toString()).shiftedBy(-decimals);
+    const balance = Number(balanceBN.toPrecision(15, BN.ROUND_DOWN));
     let spenderAllowance = 0;
     if (spenderAddress) {
       spenderAllowance = Number(

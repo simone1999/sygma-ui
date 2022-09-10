@@ -1,5 +1,4 @@
 import { makeStyles, createStyles, ITheme } from "@chainsafe/common-theme";
-import { red } from "@mui/material/colors";
 
 export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
   createStyles({
@@ -145,8 +144,8 @@ export const useStyles = makeStyles(({ constants, palette }: ITheme) =>
       cursor: "pointer",
       "& img, & svg": {
         display: "block",
-        height: 14,
-        width: 14,
+        height: 23,
+        width: 23,
         marginRight: 10,
       },
       "& span": {

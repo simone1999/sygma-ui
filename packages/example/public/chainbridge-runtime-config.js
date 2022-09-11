@@ -22,8 +22,8 @@ window.__RUNTIME_CONFIG__ = {
           },
           {
             "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-            "name": "Wrapped BNB",
-            "symbol": "WBNB",
+            "name": "BNB",
+            "symbol": "BNB",
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x74446a7418BFbFCDe3F1f6bCaFFA097d050a6dD8/logo.png",
             "resourceId": "0x0000000000000000000000bb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c01"
           },

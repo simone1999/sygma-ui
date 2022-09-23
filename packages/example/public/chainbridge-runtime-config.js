@@ -41,13 +41,13 @@ window.__RUNTIME_CONFIG__ = {
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x71Ef0A490E53Cc177F640169b0347Be4d0f23cc9/logo.png",
             "resourceId": "0x00000000000000000000001AF3F329e8BE154074D8769D1FFa4eE058B1DBc301"
           },
-          {
+          /*{
             "address": "0xbA2aE424d960c26247Dd6c32edC70B295c744C43",
             "name": "Dogecoin",
             "symbol": "DOGE",
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x46a8E16dB8Bb241618873bCA21Ef02F120EA4125/logo.png",
             "resourceId": "0x0000000000000000000000bA2aE424d960c26247Dd6c32edC70B295c744C4301"
-          },
+          },*/ // todo: dogecoin on BSC has 8 decimals which currently is not compatible with the bridge
           {
             "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
             "name": "Ether",

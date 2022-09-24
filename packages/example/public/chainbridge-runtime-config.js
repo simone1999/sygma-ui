@@ -239,6 +239,13 @@ window.__RUNTIME_CONFIG__ = {
             "symbol": "BUSD",
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/doge/assets/0x905caAE1627856529BEd7b9572F02af5e5Ac6cA7/logo.png",
             "resourceId": "0x0000000000000000000000e9e7CEA3DedcA5984780Bafc599bD69ADd087D5601"
+          },
+          {
+            "address": "0x876607adc4CC715CDE0183fdC49eA2539053f358",
+            "name": "LunaGens",
+            "symbol": "LUNG",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/dogechain/assets/0x876607adc4CC715CDE0183fdC49eA2539053f358/logo.png",
+            "resourceId": "0x000000000000000000000028B9aed756De31B6b362aA0f23211D13093EBb7901"
           }
         ]
       },

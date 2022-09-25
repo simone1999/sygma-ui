@@ -54,37 +54,43 @@ const AddressInput: React.FC<IAddressInput> = ({
     <FormControl sx={{ color: '#fff' }} disabled={disabled} fullWidth>
       {sendToSameAccountHelper && (
         <>
-          <Typography sx={{
-                      color : "#b9c5cb", fontSize : '12px', marginBottom : '5px',
-                    }}
-                  variant="body1">Destination address
-                  </Typography>
-            <TextField sx={{
-                input: { color: '#fff', },
-                label: { color: '#b9c5cb', fontSize: '15px'},
-                // width : '450px',
-                color : '#fff',
-                border :'1px solid #4c4f5c',
-                borderRadius : '10px',
-                fontSize : '15px',
-                padding : '5px',
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start" sx={{color: '#4c4f5c'}}>
-                  <AssignmentIndIcon  />
-                </InputAdornment>
-              ),
-            }}
-              variant = "standard"
-              error={!!fieldState.error}
-              helperText={fieldState.error ? fieldState.error.message : undefined}
-              fullWidth
-              {...field}
-              // label={label}
-              placeholder={placeholder}
-              disabled={Boolean(disabled || stored !== undefined)}
-            />
+        {stored !== undefined?
+          <></>
+          :
+            <>
+              <Typography sx={{
+                          color : "#b9c5cb", fontSize : '12px', marginBottom : '5px',
+                        }}
+                      variant="body1">Destination address
+                      </Typography>
+                <TextField sx={{
+                    input: { color: '#fff', },
+                    label: { color: '#b9c5cb', fontSize: '15px'},
+                    // width : '450px',
+                    color : '#fff',
+                    border :'1px solid #4c4f5c',
+                    borderRadius : '10px',
+                    fontSize : '15px',
+                    padding : '5px',
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start" sx={{color: '#4c4f5c'}}>
+                      <AssignmentIndIcon  />
+                    </InputAdornment>
+                  ),
+                }}
+                  variant = "standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error ? fieldState.error.message : undefined}
+                  fullWidth
+                  {...field}
+                  // label={label}
+                  placeholder={placeholder}
+                  disabled={Boolean(disabled || stored !== undefined)}
+                />
+              </>
+            }
           </>
         )}
       {sendToSameAccountHelper && (

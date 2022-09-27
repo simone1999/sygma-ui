@@ -91,7 +91,7 @@ window.__RUNTIME_CONFIG__ = {
         name: "Bitgert",
         decimals: 18,
         bridgeAddress: "0xE8b0dF74192CCA9C4de66F23653476f6e6CD1d98",
-        rpcUrl: "https://rpc.icecreamswap.com",
+        rpcUrl: "https://rpc-bitgert-vefi.com",  // https://rpc.icecreamswap.com todo: reenable icecream rpc
         type: "Ethereum",
         nativeTokenSymbol: "Brise",
         tokens: [

@@ -91,10 +91,10 @@ export async function hasTokenSupplies(
     const balanceTokens = await erc20destinationToken.balanceOf(
       destinationErc20Handler
     );
-    const erc20Decimals =
-      destinationToken.decimals ?? destinationChain.decimals;
-    if (Number(utils.formatUnits(balanceTokens, erc20Decimals)) < amount) {
-      console.log("Not enough token balance on destination chain!");
+    const erc20Decimals = destinationToken.decimals ?? await erc20destinationToken.decimals();
+    const amountAvailable = Number(utils.formatUnits(balanceTokens, erc20Decimals));
+    if (amountAvailable < amount) {
+      console.log("Not enough token balance on destination chain! wanted:", amount, "available:", amountAvailable);
       return false;
     }
     return true;

@@ -12,6 +12,13 @@ import { buttonUnstyledClasses, TabsListUnstyled, TabsUnstyled, TabUnstyled, tab
 import styled from "styled-components";
 import { ROUTE_LINKS } from "../../routes";
 import logo from '../../media/Icons/logo_ice_sm.png';
+import ConnectIcon from '@mui/icons-material/ElectricalServices';
+import PowerOffIcon from '@mui/icons-material/PowerOff';
+import PowerIcon from '@mui/icons-material/Power';
+import FeeIcon from "@mui/icons-material/LocalGasStation";
+import Button from "@mui/material/Button";
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 
 const ROUTE_LINKS_HEADERS = [
   { route: "/transfer", label: "Transfer" },
@@ -49,7 +56,7 @@ const Tab = styled(props => <TabUnstyled {...props} />)`
   color : ${black[50]};
   &:hover {
     color: ${black[0]};
-  }
+  };
 
   &.${tabUnstyledClasses.selected} {
     background-color: ${black[100]};
@@ -86,7 +93,27 @@ const TabsList =styled(props => <TabsListUnstyled {...props} />)`
   align-content: space-between;
 `;
 
+const WalletButton = styled(Button)({
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 13,
+    padding: '6px 12px',
+    border: '1px solid',
+    backgroundColor : '#1e1f24',
+    marginRight : 0,
+    lineHeight: 1.5,
+    borderColor : '#1e1f24',
+    fontFamily: 'Fira Code',
+    // color : '#f07093',
+    borderRadius : "10px",
+    position: 'relative',
+    '&:hover': {
+        backgroundColor: '#222327',
+        boxShadow: 'none',
+    },
+});
 
+const isMobile = window.screen.width < 600
 const AppHeader: React.FC<IAppHeader> = () => {
   const classes = useStyles();
   const routeMatch = useRouteMatch([ROUTE_LINKS.Transfer, ROUTE_LINKS.Wrap]);
@@ -96,12 +123,13 @@ const currentTab = routeMatch?.path;
   const { __RUNTIME_CONFIG__ } = window;
 
   const indexerEnabled = "INDEXER_URL" in __RUNTIME_CONFIG__;
-  const hStyle = { color: '#fff', fontWeight:300, fontFamily : 'Fira Code',};
-  
+  const hStyle = { fontSize: '15px', color: '#fff', fontWeight:300, fontFamily : 'Fira Code',};
+
   return (
     <header className={clsx(classes.root)}>
+        <Box sx={{ display: "flex", justifyContent: "flex-start", }}>
       <div className={classes.left}>
-        {<img src={logo} alt="Logo" />}
+        {<img style={{ width : '23px'}} src={logo} alt="Logo" />}
         {/* <div className={classes.logo}>
         </div> */}
         <div className={classes.mainTitle}>
@@ -129,7 +157,10 @@ const currentTab = routeMatch?.path;
           )} */}
         </div>
       </div>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        </Box>
+        { !isMobile &&
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      {/*<Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>*/}
             
             <TabsUnstyled defaultValue={currentTab}>
               <TabsList>
@@ -157,31 +188,46 @@ const currentTab = routeMatch?.path;
                 </Tab>
               </TabsList>
             </TabsUnstyled>
-      </Box>
+      </Box> }
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <section className={classes.state}>
         {!isReady ? (
-          <Typography  style={ hStyle }>No wallet connected</Typography>
+                <WalletButton variant="contained" disableRipple>
+                    <PowerOffIcon sx={{ marginRight : '3px', color : '#f07093',}}/>
+                    No wallet connected
+                </WalletButton>
         ) : (
           <>
             <div className={classes.mainInfo}>
               <div className={classes.accountInfo}>
-                <span className={classes.indicator} />
-                <Typography style={ subStyle }  className={classes.address}>
-                  {address && shortenAddress(address)}
-                </Typography>
+                {/*<span className={classes.indicator} />*/}
+                  <WalletButton variant="contained" disableRipple>
+                      <ConnectIcon sx={{ marginRight : '3px', color : '#7dff6b',}}/>
+                      <Typography style={ subStyle }  className={classes.address}>
+                          <span></span>
+                          <span>
+                            <strong>{homeConfig?.name} </strong>
+                        </span>
+                      </Typography>
+                      <Typography style={ subStyle }  className={classes.address}>
+                         |{address && shortenAddress(address)}
+                      </Typography>
+                  </WalletButton>
+
+
               </div>
-              <Typography style={ subStyle }  className={classes.address}>
-                <span>connected to </span>
-                <span>
-                    <strong>{homeConfig?.name}</strong>
-                </span>
-              </Typography>
+
             </div>
           </>
         )}
       </section>
+        </Box>
+
     </header>
+
+
   );
+
 };
 
 export default AppHeader;

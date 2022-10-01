@@ -40,13 +40,13 @@ const TokenInput: React.FC<ITokenInput> = ({
     <Box sx={{ mt: 2 }}>
            <Typography  sx={{
                    marginTop : '20px',
-                  color : "#b9c5cb", fontSize : '12px', marginBottom : '5px',
+                  color : "#b9c5cb", fontSize : '12px', marginBottom : '5px', fontFamily : 'Fira Code',
                 }}
               variant="body1">Amount to send
               </Typography>
       <TextField
        sx={{ 
-        input: { color: '#fff', },
+        input: { color: '#fff',fontFamily : 'Fira Code', fontWeight : 800},
         label: { color: '#b9c5cb', fontSize: '15px'},
           // width : '450px',
           color : '#fff', 
@@ -54,6 +54,7 @@ const TokenInput: React.FC<ITokenInput> = ({
           borderRadius : '10px',
           fontSize : '15px',
           padding : '5px',
+           fontFamily : 'Fira Code',
       }} 
          variant="standard"
         disabled={disabled}
@@ -71,6 +72,7 @@ const TokenInput: React.FC<ITokenInput> = ({
           ),
           endAdornment: (
             <Button sx={{
+                fontFamily : 'Fira Code',
               backgroundColor : '#3a3d47',
               color : '#fff',
               ":hover": {

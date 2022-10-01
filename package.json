@@ -14,8 +14,10 @@
   "dependencies": {
     "@chainsafe/chainbridge-ui-core": "1.0.3",
     "@changesets/cli": "^2.14.1",
+    "@mui/base": "^5.0.0-alpha.98",
     "ethers": "5.4.5",
     "prettier": "2.1.2",
+    "react-select": "^5.4.0",
     "wsrun": "^5.2.4"
   },
   "scripts": {

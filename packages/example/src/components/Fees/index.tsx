@@ -24,6 +24,17 @@ const FeesFormikWrapped: React.FC<IFeesFormikWrapped> = ({
   // const { values } = useFormikContext();
 
   return (
+      <Box
+          sx={{
+            paddingLeft : '20px',
+            paddingRight : '20px',
+            marginBottom : '20px',
+            borderStyle: 'dashed',
+            borderRadius: '20px',
+            borderWidth: 1,
+            borderColor: '#f07093',}
+          }
+      >
     <Box sx={{ my: 2,   ".text-p" : {
       fontFamily : "Fira Code",
       fontWeight :'400',
@@ -37,6 +48,7 @@ const FeesFormikWrapped: React.FC<IFeesFormikWrapped> = ({
       color : '#fff'
     } }}
     >
+
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         {fee !== undefined && feeSymbol !== undefined && (
           <>
@@ -58,6 +70,7 @@ const FeesFormikWrapped: React.FC<IFeesFormikWrapped> = ({
         )}
       </Box>
     </Box>
+      </Box>
   );
 };
 

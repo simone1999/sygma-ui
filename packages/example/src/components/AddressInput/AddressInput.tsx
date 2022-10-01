@@ -55,18 +55,20 @@ const AddressInput: React.FC<IAddressInput> = ({
       {sendToSameAccountHelper && (
         <>
           <Typography sx={{
-                      color : "#b9c5cb", fontSize : '12px', marginBottom : '5px',
+                      color : "#b9c5cb", fontSize : '12px', marginBottom : '5px', fontFamily : 'Fira Code',
+
                     }}
                   variant="body1">Destination address
                   </Typography>
             <TextField sx={{
-                input: { color: '#fff', },
+                input: { color: '#fff', fontFamily : 'Fira Code', fontSize : '15px', },
                 label: { color: '#b9c5cb', fontSize: '15px'},
                 // width : '450px',
                 color : '#fff',
                 border :'1px solid #4c4f5c',
                 borderRadius : '10px',
                 fontSize : '15px',
+              fontFamily : 'Fira Code',
                 padding : '5px',
             }}
             InputProps={{
@@ -88,17 +90,19 @@ const AddressInput: React.FC<IAddressInput> = ({
           </>
         )}
       {sendToSameAccountHelper && (
-        <FormGroup sx={{ my: 1 }}>
-          <FormControlLabel sx={{ fontSize: '10px', color : '#babcc0', fontFamily : "sans-serif"}}
+        <FormGroup sx={{ my: 1,   }}>
+          <FormControlLabel sx={{ fontSize: '10px', color : '#babcc0',}}
             control={
-              <Checkbox sx={{color : "#fff" }}
+              <Checkbox sx={{color : "#bd4e6c", fontFamily : 'Fira Code', '&.Mui-checked': {
+                  color: "#bd4e6c",
+                }, }}
                 size="small"
                 disabled={disabled || senderAddress == "undefined"}
                 checked={stored !== undefined}
                 onChange={() => toggleReceiver()}
               />
             }
-            label="I want to send funds to my address"
+             label={<Typography sx={{ fontWeight : '400', fontFamily : 'Fira Code', fontSize : "13px"}}>I want to send funds to my address</Typography>}
           />
         </FormGroup>
       )}

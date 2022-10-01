@@ -41,7 +41,7 @@ export const useStyles = makeStyles(
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        border: `1px solid ${palette.additional["transactionModal"][2]}`,
+        border: `1px solid #f07093`,
         color: "#fff",
         "& svg": {
           height: 20,

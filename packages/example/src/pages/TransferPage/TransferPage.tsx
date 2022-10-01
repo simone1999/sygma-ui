@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from 'react-router-dom';
 
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Button from "@mui/material/Button";
+import FeeIcon from '@mui/icons-material/LocalGasStation';
 import clsx from "clsx";
+import SwapIcon from '@mui/icons-material/SwapHoriz';
+import PoolIcon from '@mui/icons-material/Waves';
+import InfoIcon from '@mui/icons-material/GridView';
+import BridgeIcon from '@mui/icons-material/AllInclusive';
 
 import {
   useChainbridge,
@@ -33,6 +39,23 @@ import {
 import HomeNetworkConnectView from "./HomeNetworkConnectView";
 
 import makeValidationSchema from "./makeValidationSchema";
+import PowerOffIcon from "@mui/icons-material/PowerOff";
+import Typography from "@mui/material/Typography";
+import styled from "styled-components";
+import {Box} from "@mui/material";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import Paper from "@mui/material/Paper";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+let theme = createTheme({
+  palette: {
+    primary: {
+      main: '#f07093',
+    },
+  },
+});
+
 
 export type PreflightDetails = {
   tokenAmount: number;
@@ -60,6 +83,8 @@ const TransferPage = () => {
     address,
     checkSupplies,
   } = useChainbridge();
+
+  const isMobile = window.screen.width < 600
 
   const { accounts, selectAccount, setSelectedToken, setDepositAmount, depositAmount} = useHomeBridge();
   const [aboutOpen, setAboutOpen] = useState<boolean>(false);
@@ -120,11 +145,41 @@ const TransferPage = () => {
     });
     setPreflightModalOpen(true);
   };
+  const BootstrapButton = styled(Button)({
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 13,
+    padding: '6px 12px',
+    border: '1px solid',
+    backgroundColor : '#1e1f24',
+    marginRight : 0,
+    lineHeight: 1.5,
+    borderColor : '#1e1f24',
+    fontFamily: 'Fira Code',
+    color : '#7dff6b',
+    borderRadius : "10px",
+    position: 'absolute', right: 0,
+    '&:hover': {
+      backgroundColor: '#222327',
+      boxShadow: 'none',
+    },
+  });
 
   const feeTokenSymbol = bridgeFeeToken ? bridgeFeeToken == "0x0000000000000000000000000000000000000000" ? homeConfig?.nativeTokenSymbol : tokens[bridgeFeeToken].symbol : "";
 
+  const [value, setValue2] = React.useState(0);
+
     return (
+        <ThemeProvider theme={theme}>
     <div className={classes.root}>
+      <section>
+        {/*<Typography  style={ {color:'#7dff6b', fontSize : '15px', fontFamily : 'Fira Code', marginBottom : '10px'} }> <FeeIcon sx={{color:'#7dff6b', paddingTop : '7px'}} />Fee: 1%</Typography>*/}
+
+        <BootstrapButton variant="contained" disableRipple>
+          <FeeIcon sx={{ marginRight : '3px'}}/>
+          Fee : 1%
+        </BootstrapButton>
+      </section>
       <HomeNetworkConnectView
         isReady={isReady}
         accounts={accounts}
@@ -138,6 +193,7 @@ const TransferPage = () => {
         selectAccount={selectAccount}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
+
         <section>
           <SelectDestinationNetwork
             label="Destination Network"
@@ -227,45 +283,47 @@ const TransferPage = () => {
             control={control}
           />
         </section>
-        <Fees
-          amountFormikName="tokenAmount"
-          className={classes.fees}
-          fee={bridgeFee}
-          feeSymbol={feeTokenSymbol}
-          symbol={
-            preflightDetails && tokens[preflightDetails.token]
-              ? tokens[preflightDetails.token].symbol
-              : undefined
-          }
-          amount={watchAmount}
-        />
+        {tokens[preflightDetails.token] &&
+            <Fees
+                amountFormikName="tokenAmount"
+                className={classes.fees}
+                fee={bridgeFee}
+                feeSymbol={feeTokenSymbol}
+                symbol={
+                  preflightDetails && tokens[preflightDetails.token]
+                      ? tokens[preflightDetails.token].symbol
+                      : undefined
+                }
+                amount={watchAmount}
+            />
+        }
         <section>
-        <Button
-            disabled={!destinationChainConfig || formState.isSubmitting}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{
-              
-              borderRadius : '20px',
-              height : '50px',
-              fontWeight : 'bold',
-              backgroundColor : '#2792d6',
-              color : '#fff',
-              fontSize : '15px',
-              ":hover": {
-                backgroundColor : '#2792d6',
-                opacity: 0.9,
-              },
-              ":disabled": {
-                backgroundColor : '#3a3c48',
-                color : '#6a7287'
-              },
+              < Button
+                  disabled={!destinationChainConfig || formState.isSubmitting}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{
 
-            }}
-          >
-              TRANSFER
-          </Button>
+                    borderRadius : '20px',
+                    height : '50px',
+                    fontWeight : 400,
+                    backgroundColor : '#f07093',
+                    color : '#fff',
+                    fontSize : '15px',
+                      fontFamily : 'Fira Code',
+                    ":hover": {
+                    backgroundColor : '#bd4e6c',
+                    opacity: 0.9,
+                  },
+                    ":disabled": {
+                    backgroundColor : '#3a3c48',
+                    color : '#6a7287'
+                  },
+                  }}
+            >
+            TRANSFER
+            </Button>
         </section>
         <section>
           <HelpOutlineIcon
@@ -302,7 +360,43 @@ const TransferPage = () => {
       {/* This is here due to requiring router */}
       <NetworkUnsupportedModal />
       <NetworkSelectModal />
+
+      {isMobile &&
+          <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor : '#1e1f24', fontSize : '10px'}} elevation={3}>
+
+            <BottomNavigation
+                sx={{backgroundColor : '#1e1f24', color: 'red', "& .MuiBottomNavigationAction-root, .Mui-selected, svg": {
+                    color: "#fff", fontFamily : 'Fira Code',
+                  },
+                  "& .Mui-selected > svg, & .Mui-selected ": {
+                    color: "#f07093", fontFamily : 'Fira Code',
+                  },  }}
+                showLabels
+                value={'Bridge'}
+                onChange={(event, newValue) => {
+                  setValue2(newValue);
+                }}
+            >
+              <BottomNavigationAction
+                  component={Link}
+                  to="/swap"
+                  label="Swap"
+                  icon={<SwapIcon />}/>
+              <BottomNavigationAction label="Pool"
+                                      component={Link}
+                                      to="/pool"
+                                      icon={<PoolIcon />}/>
+
+              <BottomNavigationAction label="Info"
+                                     href={"//info.icecreamswap.com"}
+                                      icon={<InfoIcon />}/>
+              <BottomNavigationAction  label="Bridge" value="Bridge" icon={<BridgeIcon />}/>
+            </BottomNavigation>
+          </Paper>
+      }
     </div>
+        </ThemeProvider>
   );
+
 };
 export default TransferPage;

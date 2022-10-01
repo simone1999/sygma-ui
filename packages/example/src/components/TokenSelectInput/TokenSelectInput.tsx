@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useController } from "react-hook-form";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
+import Select2 from 'react-select';
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+
 import FormHelperText from "@mui/material/FormHelperText";
 import TextField from "@mui/material/TextField";
 
 import { Tokens } from "@chainsafe/web3-context/dist/context/tokensReducer";
 import { alpha, Menu, MenuProps, Typography } from "@mui/material";
 import styled from "styled-components";
+import Paper from "@mui/material/Paper";
 
 interface ITokenSelectInput {
   className: any;
@@ -25,6 +27,8 @@ interface ITokenSelectInput {
   setValue?: any;
   control?: any;
 }
+
+
 
 const TokenSelectInput: React.FC<ITokenSelectInput> = (
   props: ITokenSelectInput
@@ -49,8 +53,10 @@ const TokenSelectInput: React.FC<ITokenSelectInput> = (
     ? `${tokens[field.value]?.balance} ${tokens[field.value]?.symbol}`
     : " ";
 
-  
+
   const [synced, setSynced] = useState();
+
+
   useEffect(() => {
     if (sync && field.value !== synced) {
       setSynced(field.value);
@@ -68,44 +74,79 @@ const TokenSelectInput: React.FC<ITokenSelectInput> = (
     }
   }, [tokens, setValue, field.value]);
 
+
+
+  // @ts-ignore
+  // @ts-ignore
   return (
-   
+
     <Box sx={{ marginBottom: '10px' }}
     >
       <FormControl hiddenLabel fullWidth  disabled={disabled}>
         <Typography  sx={{
-          color : "#b9c5cb", fontSize : '12px', marginBottom : '5px',
+          color : "#b9c5cb", fontSize : '12px', marginBottom : '5px', fontFamily : 'Fira Code',
         }} variant="body1">
           {balance !== " "? "Token balance : " + balance.slice(0,7): "Token"}
         </Typography>
+
         <Select fullWidth
-        // variant="standard"
-        sx={{ 
+                MenuProps={{
+                  PaperProps:{
+                    sx:{
+                      backgroundColor :'#1D1F24',
+                      border :'2px solid #4c4f5c',
+                      borderRadius : "10px"
+                      }
+                  }
+                }
+                }
+        sx={{
           'img' : { borderRadius :'50%'},
-          color : '#fff', 
+          color : '#fff',
           height : '45px',
           border :'1px solid #4c4f5c',
           borderRadius : '10px',
           fontSize : '15px',
-          padding : '5px',
-          
-           // 
-         }} 
-         
-         {...field} 
+          '.MuiSvgIcon-root ': {
+            fill: "#e27f93 !important",
+          },
+          list:{
+            padding:'0'
+          },
+          backgroundColor : '#1D1F24',
+
+           //
+         }}
+
+
+         {...field}
         //  label="token"
-         
+
          >
           {options.map((option: any) => (
-            <MenuItem 
-                sx={{  color : '#0d1321', 
-                'img' : { borderRadius :'50%', 
-                 }}}
+            <MenuItem
+                sx={{
+                  // border :'1px solid #4c4f5c',
+                  color : '#fff',
+                  backgroundColor : '#1D1F24',
+                  "&:hover": {
+                    backgroundColor: "#2a2934"
+                  },
+                  fontFamily : 'Fira Code',
+                'img' : { borderRadius :'50%', },
+                  '&:focus': {
+                    backgroundColor: '#2a2934',
+                    "&:hover": {
+                      backgroundColor: "#2a2934"
+                    },
+                  },
+                }}
+                dense={true}
                 key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
-          
+
         </Select>
       </FormControl>
     </Box>

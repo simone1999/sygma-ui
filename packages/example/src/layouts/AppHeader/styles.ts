@@ -18,7 +18,7 @@ export const useStyles = makeStyles(
         color: "#fff",
         alignItems: "center",
         zIndex: zIndex?.layer2,
-        [breakpoints.down("sm")]: {
+        [breakpoints.down("xs")]: {
           flexDirection: "column",
         },
       },
@@ -26,8 +26,17 @@ export const useStyles = makeStyles(
         display: "flex",
         flexDirection: "row",
         justifyContent: "flex-start",
+        [breakpoints.down("xs")]: {
+          display: "flex",
+          flexDirection: "column",
+        },
+      },
+      right: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
         alignItems: "center",
-        [breakpoints.down("sm")]: {
+        [breakpoints.down("xs")]: {
           display: "flex",
           flexDirection: "column",
         },
@@ -44,6 +53,7 @@ export const useStyles = makeStyles(
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "flex-end",
       },
       indicator: {
         display: "block",

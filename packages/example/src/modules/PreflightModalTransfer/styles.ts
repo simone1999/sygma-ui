@@ -40,7 +40,7 @@ export const useStyles = makeStyles(({ constants, palette, zIndex }: ITheme) =>
       fontSize : '0.7rem',
     },
     startButton: {
-      backgroundColor: "#2792d6",
+      backgroundColor: "#f07093",
       borderRadius: "20px",
       fontWeight : "bold",
       color: "#fff",

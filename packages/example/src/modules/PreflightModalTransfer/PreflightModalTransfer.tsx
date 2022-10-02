@@ -57,7 +57,7 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
         <Typography style={{
           fontWeight: 'bold',
           fontSize: "1.2rem",
-          color: "#2792d6"
+          color: "#f07093",
         }}>
         Pre-flight check
       </Typography>

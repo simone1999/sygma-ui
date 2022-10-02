@@ -4,8 +4,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import { WalletType } from "@chainsafe/chainbridge-ui-core";
-import { BridgeConfig } from "../../chainbridgeConfig";
-import LoginIcon from '@mui/icons-material/Login';
+import { BridgeConfig } from "../../chainbridgeConfig"
+import PowerIcon from '@mui/icons-material/Power';
+
 
 type HomeNetworkConnectViewProps = {
   isReady: boolean | undefined;
@@ -45,19 +46,20 @@ export default function HomeNetworkConnectView({
             sx={{
               borderRadius : '10px',
               height : '50px',
-              fontWeight : 'bold',
-              backgroundColor : '#2792d6',
+              fontWeight : '400',
+              backgroundColor : '#f07093',
               color : '#fff',
               fontSize : '15px',
+              fontFamily : 'Fira Code',
               ":hover": {
-                backgroundColor : '#2792d6',
-                opacity: 0.9,}
+                backgroundColor : '#bd4e6c',
+                }
             }}
             onClick={() => {
               setWalletType("select");
             }}
           >
-            <LoginIcon sx={{marginRight:'6px'}} />Connect Wallet
+            <PowerIcon sx={{marginRight:'0px'}} />Connect Wallet
           </Button>
         )}
         {isReady &&
@@ -72,6 +74,7 @@ export default function HomeNetworkConnectView({
             <section className={classes.connected}>
               <div>
                 <Typography sx={{
+                  fontFamily : 'Fira Code',
                    marginTop : '20px',
                   color : "#b9c5cb", fontSize : '12px', 
                 }}
@@ -88,7 +91,8 @@ export default function HomeNetworkConnectView({
                 border :'1px solid #4c4f5c',
                 borderRadius : '10px',
                   fontSize : '15px',
-                  marginTop : '10px'
+                  marginTop : '10px',
+                  fontFamily : 'Fira Code',
                 }}
                 component="h5"
                 variant="h5"

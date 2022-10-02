@@ -167,7 +167,7 @@ const TransferActiveModal: React.FC<ITransferActiveModalProps> = ({
       </section>
       <section className={classes.content}>
         <Typography className={classes.heading}
-          sx={{fontWeight : 'bold', fontSize : "1.2rem", color : "#2792d6"}}
+          sx={{fontWeight : 'bold', fontSize : "1.2rem", color : "#f07093"}}
         >
           {getTransactionStateHeader(
             transactionStatus,

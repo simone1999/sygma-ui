@@ -97,14 +97,16 @@ const AddressInput: React.FC<IAddressInput> = ({
         <FormGroup sx={{ my: 1 }}>
           <FormControlLabel sx={{ fontSize: '10px', color : '#babcc0', fontFamily : "sans-serif"}}
             control={
-              <Checkbox sx={{color : "#fff" }}
+              <Checkbox sx={{color : "#bd4e6c", fontFamily : 'Fira Code', '&.Mui-checked': {
+                  color: "#bd4e6c",
+                }, }}
                 size="small"
                 disabled={disabled || senderAddress == "undefined"}
                 checked={stored !== undefined}
                 onChange={() => toggleReceiver()}
               />
             }
-            label="I want to send funds to my address"
+             label={<Typography sx={{ fontWeight : '400', fontFamily : 'Fira Code', fontSize : "13px"}}>I want to send funds to my address</Typography>}
           />
         </FormGroup>
       )}

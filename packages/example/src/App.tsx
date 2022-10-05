@@ -27,7 +27,7 @@ if (
     release: process.env.REACT_APP_SENTRY_RELEASE,
   });
 }
-
+// github trigger
 const App: React.FC<{}> = () => {
   const {
     __RUNTIME_CONFIG__: {

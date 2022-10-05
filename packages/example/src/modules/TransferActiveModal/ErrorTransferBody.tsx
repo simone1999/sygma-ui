@@ -20,7 +20,7 @@ export default function ErrorTransferBody({
   return (
     <>
       <Typography sx={{ mt: 3, mb: 4 }} component="p">
-        Something went wrong and we could not complete your transfer.
+        Transfer was aborted.
       </Typography>
       {homeConfig &&
         (homeConfig as EvmBridgeConfig).blockExplorer &&

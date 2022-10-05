@@ -33,7 +33,10 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
   return (
     <Dialog
       PaperProps={{
-        style: { borderRadius: '15px'}
+        style: {
+            borderRadius: '15px',
+            backgroundColor: '#00000000',
+        },
       }}
       className={classes.root}
       open={open}
@@ -61,6 +64,7 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
         }}>
         Pre-flight check
       </Typography>
+      {/*
       <Typography className={classes.subtitle} variant="h5" component="p">
         Please be advised of the risks using this and most other bridges:
       </Typography>
@@ -80,19 +84,20 @@ const PreflightModalTransfer: React.FC<IPreflightModalTransferProps> = ({
         <Typography className={classes.agreement} variant="body2" component="p">
           I agree and want to send{":"}
           </Typography>
-        <Grid container spacing={2} columns={12}>
+        */}
+        <Grid container spacing={1} columns={12} width={"300px"}>
         <Grid item xs={3}>
           <Typography>amount<br/></Typography>
+          <Typography>sender<br/></Typography>
+          <Typography>recipient<br/></Typography>
           <Typography>from<br/></Typography>
-          <Typography>chain<br/></Typography>
           <Typography>to<br/></Typography>
-          <Typography>chain<br/></Typography>
         </Grid>
         <Grid item xs={9}>
           <Typography>: <strong> {value} {tokenSymbol}</strong><br/></Typography>
           <Typography>: <strong>{shortenAddress(sender)}</strong> <br/></Typography>
-          <Typography>: <strong>{sourceNetwork}</strong> <br/></Typography>
           <Typography>: <strong>{shortenAddress(receiver)}</strong><br/></Typography>
+          <Typography>: <strong>{sourceNetwork}</strong> <br/></Typography>
           <Typography>: <strong>{targetNetwork}</strong><br/></Typography>
         </Grid>
       </Grid>

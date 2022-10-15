@@ -63,16 +63,17 @@ const makeDeposit =
     setDepositAmount(amount);
     setSelectedToken(tokenAddress);
     const erc20 = Erc20DetailedFactory.connect(tokenAddress, signer);
-    const erc20Decimals = token.decimals ?? await erc20.decimals();
+    const isNative = token.address == "0x0000000000000000000000000000000000000000";
+
+    const erc20Decimals = token.decimals || (isNative? 18: await erc20.decimals());
+
+    const amountBN = BigNumber.from(utils.parseUnits(amount.toString(), erc20Decimals))
 
     const data =
       "0x" +
       utils
         .hexZeroPad(
-          // TODO Wire up dynamic token decimals
-          BigNumber.from(
-            utils.parseUnits(amount.toString(), erc20Decimals)
-          ).toHexString(),
+            amountBN.toHexString(),
           32
         )
         .substr(2) + // Deposit Amount (32 bytes)
@@ -89,7 +90,7 @@ const makeDeposit =
       );
 
       const handlerAddress = await homeBridge._resourceIDToHandlerAddress(token.resourceId)
-      const currentAllowance = await erc20.allowance(
+      const currentAllowance = isNative? 0: await erc20.allowance(
           address,
           handlerAddress
       );
@@ -98,7 +99,7 @@ const makeDeposit =
         utils.formatUnits(currentAllowance, erc20Decimals)
       );
       // TODO extract token allowance logic to separate function
-      if (Number(utils.formatUnits(currentAllowance, erc20Decimals)) < amount) {
+      if (!isNative && Number(utils.formatUnits(currentAllowance, erc20Decimals)) < amount) {
         if (
           Number(utils.formatUnits(currentAllowance, erc20Decimals)) > 0 &&
           token.isDoubleApproval
@@ -129,11 +130,18 @@ const makeDeposit =
 
       setTransactionStatus("Deposit");
 
-      let ethFee = bridgeFeeToken == "0x0000000000000000000000000000000000000000"? bridgeFee || 0: 0
+      let value = BigNumber.from(0);
+      if (isNative){
+        value = amountBN;
+      } else {
+        if (bridgeFee && bridgeFeeToken == "0x0000000000000000000000000000000000000000") {
+          value = utils.parseUnits((bridgeFee).toString(), 18);
+        }
+      }
 
       const depositTransaction = await homeBridge.deposit(destinationChainId, token.resourceId, data, {
         gasPrice: gasPriceCompatibility,
-        value: utils.parseUnits((ethFee).toString(), 18),
+        value: value,
       });
       const depositReceipt = await depositTransaction.wait();
       setHomeTransferTxHash(depositTransaction.hash);

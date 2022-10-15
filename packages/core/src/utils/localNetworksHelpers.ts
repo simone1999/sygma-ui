@@ -78,12 +78,20 @@ export const checkBalanceAndAllowance = async (
   spenderAddress: string | undefined
 ) => {
   if (address) {
-    const decimals: number = await token.decimals()
-    const bal = await token.balanceOf(address);
+    const isNative = token.address == "0x0000000000000000000000000000000000000000";
+    let decimals: number;
+    let bal: BigNumber;
+    if (isNative){
+      decimals = 18;
+      bal = await token.provider.getBalance(address);
+    } else {
+      decimals = await token.decimals()
+      bal = await token.balanceOf(address);
+    }
     const balanceBN = new BN(bal.toString()).shiftedBy(-decimals);
     const balance = Number(balanceBN.toPrecision(15, BN.ROUND_DOWN));
     let spenderAllowance = 0;
-    if (spenderAddress) {
+    if (spenderAddress && !isNative) {
       spenderAllowance = Number(
         utils.formatUnits(
           BigNumber.from(await token.balanceOf(address)),
@@ -129,31 +137,45 @@ export const getTokenData = async (
       transfer: tokenContract.transfer,
     };
 
+    const isNative = token.address == "0x0000000000000000000000000000000000000000";
+
     if (!token.name) {
-      try {
-        newTokenInfo.name = await tokenContract.name();
-      } catch (error) {
-        console.log(
-          "There was an error getting the token name. Does this contract implement ERC20Detailed?"
-        );
+      if (!isNative) {
+        try {
+          newTokenInfo.name = await tokenContract.name();
+        } catch (error) {
+          console.log(
+              "There was an error getting the token name. Does this contract implement ERC20Detailed?"
+          );
+        }
+      } else {
+        newTokenInfo.name = "Native coin";
       }
     }
     if (!token.symbol) {
-      try {
-        newTokenInfo.symbol = await tokenContract.symbol();
-      } catch (error) {
-        console.error(
-          "There was an error getting the token symbol. Does this contract implement ERC20Detailed?"
-        );
+      if (!isNative) {
+        try {
+          newTokenInfo.symbol = await tokenContract.symbol();
+        } catch (error) {
+          console.error(
+              "There was an error getting the token symbol. Does this contract implement ERC20Detailed?"
+          );
+        }
+      } else {
+        newTokenInfo.symbol = "Coin"
       }
     }
 
-    try {
-      newTokenInfo.decimals = await tokenContract.decimals();
-    } catch (error) {
-      console.error(
-        "There was an error getting the token decimals. Does this contract implement ERC20Detailed?"
-      );
+    if (!token.symbol && !isNative) {
+      try {
+        newTokenInfo.decimals = await tokenContract.decimals();
+      } catch (error) {
+        console.error(
+            "There was an error getting the token decimals. Does this contract implement ERC20Detailed?"
+        );
+      }
+    } else {
+      newTokenInfo.decimals = 18;
     }
 
     dispatcher({

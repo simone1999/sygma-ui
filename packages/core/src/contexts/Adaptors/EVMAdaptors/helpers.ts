@@ -74,6 +74,7 @@ export async function hasTokenSupplies(
       destinationToken.address,
       provider
     );
+    const destinationNativeCoin = destinationToken.address == "0x0000000000000000000000000000000000000000";
 
     const destinationErc20Handler = await destinationBridge._resourceIDToHandlerAddress(destinationToken.resourceId)
 
@@ -88,10 +89,16 @@ export async function hasTokenSupplies(
       console.log("token mintable on destination chain");
       return true;
     }
-    const balanceTokens = await erc20destinationToken.balanceOf(
-      destinationErc20Handler
-    );
-    const erc20Decimals = destinationToken.decimals ?? await erc20destinationToken.decimals();
+    let balanceTokens;
+    let erc20Decimals;
+    if (!destinationNativeCoin) {
+      balanceTokens = await erc20destinationToken.balanceOf(destinationErc20Handler);
+      erc20Decimals = destinationToken.decimals ?? await erc20destinationToken.decimals();
+    } else {
+      balanceTokens = await erc20destinationToken.provider.getBalance(destinationErc20Handler);
+      erc20Decimals = 18;
+    }
+
     const amountAvailable = Number(utils.formatUnits(balanceTokens, erc20Decimals));
     if (amountAvailable < amount) {
       console.log("Not enough token balance on destination chain! wanted:", amount, "available:", amountAvailable);

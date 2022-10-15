@@ -39,10 +39,7 @@ import {
 import HomeNetworkConnectView from "./HomeNetworkConnectView";
 
 import makeValidationSchema from "./makeValidationSchema";
-import PowerOffIcon from "@mui/icons-material/PowerOff";
-import Typography from "@mui/material/Typography";
 import styled from "styled-components";
-import {Box} from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
@@ -56,6 +53,25 @@ let theme = createTheme({
   },
 });
 
+const BootstrapButton = styled(Button)({
+  boxShadow: 'none',
+  textTransform: 'none',
+  fontSize: 13,
+  padding: '6px 12px',
+  border: '1px solid',
+  backgroundColor : '#1e1f24',
+  marginRight : 0,
+  lineHeight: 1.5,
+  borderColor : '#1e1f24',
+  fontFamily: 'Fira Code',
+  color : '#7dff6b',
+  borderRadius : "10px",
+  position: 'absolute', right: 0,
+  '&:hover': {
+    backgroundColor: '#222327',
+    boxShadow: 'none',
+  },
+});
 
 export type PreflightDetails = {
   tokenAmount: number;
@@ -145,25 +161,6 @@ const TransferPage = () => {
     });
     setPreflightModalOpen(true);
   };
-  const BootstrapButton = styled(Button)({
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: 13,
-    padding: '6px 12px',
-    border: '1px solid',
-    backgroundColor : '#1e1f24',
-    marginRight : 0,
-    lineHeight: 1.5,
-    borderColor : '#1e1f24',
-    fontFamily: 'Fira Code',
-    color : '#7dff6b',
-    borderRadius : "10px",
-    position: 'absolute', right: 0,
-    '&:hover': {
-      backgroundColor: '#222327',
-      boxShadow: 'none',
-    },
-  });
 
   const feeTokenSymbol = bridgeFeeToken ? bridgeFeeToken == "0x0000000000000000000000000000000000000000" ? homeConfig?.nativeTokenSymbol : tokens[bridgeFeeToken].symbol : "";
 

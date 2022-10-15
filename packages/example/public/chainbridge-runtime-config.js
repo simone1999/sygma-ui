@@ -28,6 +28,13 @@ window.__RUNTIME_CONFIG__ = {
             "resourceId": "0x0000000000000000000000bb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c01"
           },
           {
+            address: "0x8FFf93E810a2eDaaFc326eDEE51071DA9d398E83",
+            name: "Brise",
+            symbol: "BRISE",
+            imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x0000000000000000000000000000000000000000/logo.png",
+            resourceId: "0x0000000000000000000000000000000000000000000000000000000000000002"
+          },
+          {
             "address": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
             "name": "BUSD",
             "symbol": "BUSD",
@@ -95,6 +102,13 @@ window.__RUNTIME_CONFIG__ = {
         type: "Ethereum",
         nativeTokenSymbol: "Brise",
         tokens: [
+          {
+            address: "0x0000000000000000000000000000000000000000",
+            name: "Brise",
+            symbol: "BRISE",
+            imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x0000000000000000000000000000000000000000/logo.png",
+            resourceId: "0x0000000000000000000000000000000000000000000000000000000000000002"
+          },
           {
             address: "0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D",
             name: "IceCream",

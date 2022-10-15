@@ -44,7 +44,8 @@ export function useSetBridgeSettingsHook(
         const signer = provider.getSigner();
         const recipient = await signer.getAddress();
         const erc20 = Erc20DetailedFactory.connect(token.address, signer);
-        const erc20Decimals = token.decimals ?? await erc20.decimals();
+        const isNative = token.address == "0x0000000000000000000000000000000000000000";
+        const erc20Decimals = token.decimals || (isNative? 18: await erc20.decimals());
 
         const data =
             "0x" +
@@ -71,16 +72,21 @@ export function useSetBridgeSettingsHook(
               (token) => token.address === feeToken
           );
           let decimals;
-          if (!feeTokenInfos || !feeTokenInfos.decimals) {
-            const feeTokenErc20 = Erc20DetailedFactory.connect(feeToken, signer);
-            decimals = await feeTokenErc20.decimals();
-            if (feeTokenInfos) {
-              feeTokenInfos.decimals = decimals;
-            }
+          if (feeToken == "0x0000000000000000000000000000000000000000") {
+            decimals = 18;
           } else {
-            decimals = feeTokenInfos.decimals;
+            if (!feeTokenInfos || !feeTokenInfos.decimals) {
+              const feeTokenErc20 = Erc20DetailedFactory.connect(feeToken, signer);
+              decimals = await feeTokenErc20.decimals();
+              if (feeTokenInfos) {
+                feeTokenInfos.decimals = decimals;
+              }
+            } else {
+              decimals = feeTokenInfos.decimals;
+            }
           }
-          setBridgeFee(Number(utils.formatUnits(fee, decimals)));
+          const bridgeFee = Number(utils.formatUnits(fee, decimals));
+          setBridgeFee(bridgeFee);
           setBridgeFeeToken(feeToken);
         } catch (e) {
           setBridgeFee(undefined);

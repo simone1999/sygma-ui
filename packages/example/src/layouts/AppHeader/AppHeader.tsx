@@ -45,14 +45,14 @@ const Tab = styled(props => <TabUnstyled {...props} />)`
   fontSize : '16px';
   background-color: transparent;
   width: 65px;
-  padding-top : 3px;
+  padding-top : 0px;
   margin: 6px 0px;
   border: none;
   border-radius: 12px;
-  textDecoration: 'none'
+  textDecoration: 'none';
   display: flex;
   justify-content: center;
-  height : '5px';
+  height : 18px;
   color : ${black[50]};
   &:hover {
     color: ${black[0]};
@@ -60,7 +60,7 @@ const Tab = styled(props => <TabUnstyled {...props} />)`
 
   &.${tabUnstyledClasses.selected} {
     background-color: ${black[100]};
-    color: "#fff";
+    color: #fff;
     height : 30px;
     padding-top : 5px;
   }
@@ -132,9 +132,9 @@ const currentTab = routeMatch?.path;
         {<img style={{ width : '23px'}} src={logo} alt="Logo" />}
         {/* <div className={classes.logo}>
         </div> */}
-        <div className={classes.mainTitle}>
-          <Typography  style={ hStyle } >ICECREAMSWAP</Typography>
-        </div>
+        {/*<div className={classes.mainTitle}>*/}
+        {/*  <Typography  style={ hStyle } >ICECREAMSWAP</Typography>*/}
+        {/*</div>*/}
         <div className={classes.headerLinks}>
           {/* {indexerEnabled ? (
             ROUTE_LINKS_HEADERS.map(({ route, label }) => (

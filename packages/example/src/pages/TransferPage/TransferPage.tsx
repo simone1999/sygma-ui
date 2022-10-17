@@ -11,6 +11,7 @@ import SwapIcon from '@mui/icons-material/SwapHoriz';
 import PoolIcon from '@mui/icons-material/Waves';
 import InfoIcon from '@mui/icons-material/GridView';
 import BridgeIcon from '@mui/icons-material/AllInclusive';
+import LaunchpadIcon from '@mui/icons-material/RocketLaunch';
 
 import {
   useChainbridge,
@@ -390,6 +391,12 @@ const TransferPage = () => {
               <BottomNavigationAction label="Info"
                                      href={"//info.icecreamswap.com"}
                                       icon={<InfoIcon />}/>
+
+              {/*<BottomNavigationAction label="Launchpad"*/}
+              {/*                        href={"//launchpad.icecreamswap.com"}*/}
+              {/*                        icon={<LaunchpadIcon />}/>*/}
+
+
               <BottomNavigationAction  label="Bridge" value="Bridge" icon={<BridgeIcon />}/>
             </BottomNavigation>
           </Paper>

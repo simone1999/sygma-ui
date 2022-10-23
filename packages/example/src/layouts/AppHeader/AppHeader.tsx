@@ -213,19 +213,13 @@ const currentTab = routeMatch?.path;
                          |{address && shortenAddress(address)}
                       </Typography>
                   </WalletButton>
-
-
               </div>
-
             </div>
           </>
         )}
       </section>
         </Box>
-
     </header>
-
-
   );
 
 };

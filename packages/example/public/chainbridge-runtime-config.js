@@ -345,6 +345,39 @@ window.__RUNTIME_CONFIG__ = {
           },
         ],
       },
+      {
+        domainId: 5,
+        networkId: 122,
+        name: "Fuse",
+        decimals: 18,
+        bridgeAddress: "0x81bCEa03678D1CEF4830942227720D542Aa15817",
+        rpcUrl: "https://rpc.fuse.io",
+        type: "Ethereum",
+        nativeTokenSymbol: "FUSE",
+        tokens: [
+          {
+            address: "0x867f08A3ab824b42e8058a1B48e32E1dF205b092",
+            name: "IceCream",
+            symbol: "ICE",
+            imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D/logo.png",
+            resourceId: "0x0000000000000000000000B999Ea90607a826A3E6E6646B404c3C7d11fa39D02"
+          },
+          {
+            "address": "0x12AA82525DEfF84777fa78578A68ceB854A85f43",
+            "name": "Dogecoin",
+            "symbol": "DOGE",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x46a8E16dB8Bb241618873bCA21Ef02F120EA4125/logo.png",
+            "resourceId": "0x0000000000000000000000bA2aE424d960c26247Dd6c32edC70B295c744C4301"
+          },
+          {
+            "address": "0x8687cD1d02A28098571067ddB18F33fEF667C929",
+            "name": "Shiba Inu",
+            "symbol": "SHIB",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xADF3051f6fbC1f42ee20B2eDb47EA7f6CcaBe978/logo.png",
+            "resourceId": "0x00000000000000000000002859e4544C4bB03966803b044A93563Bd2D0DD4D01"
+          },
+        ],
+      },
     ],
   },
 };

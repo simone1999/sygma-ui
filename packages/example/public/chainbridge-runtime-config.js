@@ -90,6 +90,13 @@ window.__RUNTIME_CONFIG__ = {
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xC7E6d7E08A89209F02af47965337714153c529F0/logo.png",
             "resourceId": "0x0000000000000000000000C7E6d7E08A89209F02af47965337714153c529F001"
           },
+          {
+            "address": "0xB1bd2BAbC83606c54728E14a4C49671b7F68bFED",
+            "name": "Young Parrot",
+            "symbol": "YPC",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x11203a00a9134Db8586381C4B2fca0816476b3FD/logo.png",
+            "resourceId": "0x000000000000000000000011203a00a9134Db8586381C4B2fca0816476b3FD02"
+          },
         ]
       },
       {
@@ -178,6 +185,13 @@ window.__RUNTIME_CONFIG__ = {
             "symbol": "USDTi",
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xC7E6d7E08A89209F02af47965337714153c529F0/logo.png",
             "resourceId": "0x0000000000000000000000C7E6d7E08A89209F02af47965337714153c529F001"
+          },
+          {
+            "address": "0x11203a00a9134Db8586381C4B2fca0816476b3FD",
+            "name": "Young Parrot",
+            "symbol": "YPC",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x11203a00a9134Db8586381C4B2fca0816476b3FD/logo.png",
+            "resourceId": "0x000000000000000000000011203a00a9134Db8586381C4B2fca0816476b3FD02"
           },
         ],
       },
@@ -342,6 +356,13 @@ window.__RUNTIME_CONFIG__ = {
             "symbol": "USDT",
             "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xC7E6d7E08A89209F02af47965337714153c529F0/logo.png",
             "resourceId": "0x0000000000000000000000C7E6d7E08A89209F02af47965337714153c529F001"
+          },
+          {
+            "address": "0x882d496af0c89c842F81Cd4850e75f75F7a3B9aE",
+            "name": "Young Parrot",
+            "symbol": "YPC",
+            "imageUri": "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0x11203a00a9134Db8586381C4B2fca0816476b3FD/logo.png",
+            "resourceId": "0x000000000000000000000011203a00a9134Db8586381C4B2fca0816476b3FD02"
           },
         ],
       },

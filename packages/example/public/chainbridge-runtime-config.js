@@ -195,7 +195,7 @@ window.__RUNTIME_CONFIG__ = {
           },
         ],
       },
-      {
+      /*{
         domainId: 3,
         networkId: 2000,
         name: "Dogechain",
@@ -276,7 +276,7 @@ window.__RUNTIME_CONFIG__ = {
             "resourceId": "0x000000000000000000000028B9aed756De31B6b362aA0f23211D13093EBb7901"
           }
         ]
-      },
+      },*/
       {
         domainId: 4,
         networkId: 61916,

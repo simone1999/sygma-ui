@@ -376,17 +376,17 @@ const TransferPage = () => {
                 }}
             >
               <BottomNavigationAction
-                  href={"//app.icecreamswap.com/#/swap"}
+                  href={"//icecreamswap.com/swap"}
                   label="Swap"
                   icon={<SwapIcon />}/>
               <BottomNavigationAction label="Pool"
-                                      href={"//app.icecreamswap.com/#/pool"}
+                                      href={"//icecreamswap.com/pool"}
                                       // component={Link}
                                       // to="/pool"
                                       icon={<PoolIcon />}/>
 
               <BottomNavigationAction label="Info"
-                                     href={"//info.icecreamswap.com"}
+                                     href={"//icecreamswap.com/info"}
                                       icon={<InfoIcon />}/>
 
               {/*<BottomNavigationAction label="Launchpad"*/}

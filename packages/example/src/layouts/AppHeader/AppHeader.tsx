@@ -165,17 +165,17 @@ const currentTab = routeMatch?.path;
             <TabsUnstyled defaultValue={currentTab}>
               <TabsList>
                   <Tab>
-                      <a href="//app.icecreamswap.com/#/swap"  rel="noreferrer">
+                      <a href="//icecreamswap.com/swap"  rel="noreferrer">
                       Swap
                       </a>
                   </Tab>
                   <Tab>
-                      <a href="//app.icecreamswap.com/#/pool"  rel="noreferrer">
+                      <a href="//icecreamswap.com/pool"  rel="noreferrer">
                       Pool
                       </a>
                   </Tab>
                   <Tab>
-                      <a href="//info.icecreamswap.com/"  rel="noreferrer">
+                      <a href="//icecreamswap.com/info"  rel="noreferrer">
                       Info
                       </a>
                   </Tab>

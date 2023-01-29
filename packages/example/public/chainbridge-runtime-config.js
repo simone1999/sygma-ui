@@ -63,13 +63,6 @@ window.__RUNTIME_CONFIG__ = {
             resourceId: "0x00000000000000000000002170Ed0880ac9A755fd29B2688956BD959F933F801"
           },
           {
-            address: "0x28B9aed756De31B6b362aA0f23211D13093EBb79",
-            name: "LunaGens",
-            symbol: "LUNG",
-            imageUri: "https://raw.githubusercontent.com/simone1999/trustwallet-assets/master/blockchains/bitgert/assets/0xc3b730dD10A7e9A69204bDf6cb5A426e4f1F09E3/logo.png",
-            resourceId: "0x000000000000000000000028B9aed756De31B6b362aA0f23211D13093EBb7901"
-          },
-          {
             address: "0x2859e4544C4bB03966803b044A93563Bd2D0DD4D",
             name: "Shiba Inu",
             symbol: "SHIB",
